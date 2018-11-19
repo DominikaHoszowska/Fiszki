@@ -6,11 +6,15 @@
 #define ZPR_COLLECTION_H
 
 #include <string>
+#include <vector>
+#include "Card.h"
 
 
 class Collection {
 private:
     std::string name_;
+    std::vector<Card> cards_;
+
 };
 
 
