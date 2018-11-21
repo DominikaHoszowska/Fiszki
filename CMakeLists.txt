@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.12)
 project(ZPR)
-
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(ZPR main.cpp Card.h Collection.h Card.cpp Collection.cpp)
+find_package(Boost 1.65 REQUIRED COMPONENTS unit_test_framework)
+include_directories(${Boost_INCLUDE_DIRS})
+
+add_subdirectory(src)
+add_subdirectory(tests)
+
