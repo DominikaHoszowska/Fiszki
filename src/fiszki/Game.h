@@ -7,7 +7,7 @@
 
 
 class Game {
-
+private:
 };
 
 

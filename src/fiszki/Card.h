@@ -10,7 +10,7 @@
 
 class Card {
 private:
-    int id_;
+    unsigned int id_;
     std::string pl_;
     std::string eng_;
     double EF_;
@@ -22,8 +22,10 @@ public:
     const std::string &getPl_() const;
 
     const std::string &getEng_() const;
-
-    Card(int id_, const std::string &pl_, const std::string &eng_);
+    const int &getDay_() const;
+    const int &getMonth_() const;
+    const int &getYear_() const;
+    Card(unsigned int id_, const std::string &pl_, const std::string &eng_);
     void setTodayDate();
 };
 
