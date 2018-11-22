@@ -7,6 +7,7 @@
 
 
 #include <string>
+#include <ctime>
 
 class Card {
 private:
@@ -14,7 +15,7 @@ private:
     std::string pl_;
     std::string eng_;
     double EF_;
-    struct tm* repetitionDay_;
+    std::time_t timeToRepeat_;
 public:
 
     void updateEF(unsigned int);
@@ -22,11 +23,9 @@ public:
     const std::string &getPl_() const;
 
     const std::string &getEng_() const;
-    const int &getDay_() const;
-    const int &getMonth_() const;
-    const int &getYear_() const;
+
     Card(unsigned int id_, const std::string &pl_, const std::string &eng_);
-    void setTodayDate();
+    void setTimeToRepeat(unsigned int);
 };
 
 #endif //ZPR_CARD_H
