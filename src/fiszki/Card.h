@@ -14,6 +14,7 @@ private:
     std::string pl_;
     std::string eng_;
     double EF_;
+    struct tm* repetitionDay_;
 public:
 
     void updateEF(unsigned int);
@@ -23,6 +24,7 @@ public:
     const std::string &getEng_() const;
 
     Card(int id_, const std::string &pl_, const std::string &eng_);
+    void setTodayDate();
 };
 
 #endif //ZPR_CARD_H
