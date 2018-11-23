@@ -26,6 +26,7 @@ public:
 
     Card(unsigned int id_, const std::string &pl_, const std::string &eng_);
     void setTimeToRepeat(unsigned int);
+
 };
 
 #endif //ZPR_CARD_H

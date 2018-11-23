@@ -14,9 +14,12 @@ class Game {
 private:
     std::vector<std::unique_ptr<Collection>> collections_;
     std::string userName_;
+    unsigned int actualFCId_;
 public:
-    void addCollection(const std::string);
-    unsigned long sizeOfCollections();
+    Game();
+    void addCollection(std::string);
+    unsigned long numberOfCollections();
+    void updateFCId();
 };
 
 
