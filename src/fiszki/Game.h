@@ -6,8 +6,17 @@
 #define ZPR_GAME_H
 
 
+#include <memory>
+#include <vector>
+#include "Collection.h"
+
 class Game {
 private:
+    std::vector<std::unique_ptr<Collection>> collections_;
+    std::string userName_;
+public:
+    void addCollection(const std::string);
+    unsigned long sizeOfCollections();
 };
 
 

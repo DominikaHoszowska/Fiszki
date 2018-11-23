@@ -3,3 +3,5 @@
 //
 
 #include "Collection.h"
+
+Collection::Collection(const std::string &name_) : name_(name_) {}

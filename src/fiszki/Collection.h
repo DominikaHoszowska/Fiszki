@@ -8,12 +8,16 @@
 #include <string>
 #include <vector>
 #include "Card.h"
-
+#include <memory>
 
 class Collection {
 private:
     std::string name_;
-    std::vector<Card> cards_;
+    std::vector<std::unique_ptr<Card>> cards_;
+public:
+
+    Collection(const std::string &name_);
+
 
 };
 

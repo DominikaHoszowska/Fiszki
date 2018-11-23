@@ -11,19 +11,16 @@
 #include <ctime>
 #include <chrono>
 #include <thread>
+#include <fiszki/Game.h>
 
 BOOST_AUTO_TEST_SUITE(sample_test_suite)
 
 
-//    BOOST_AUTO_TEST_CASE(sample_unit_test) {
-//        unsigned int i = 1;
-//        std::string a = "pies";
-//        std::string b = "dog";
-//        Card *c = new Card(i, a, b);
-//        BOOST_CHECK_EQUAL(c->getYear_(), 2018);
-//        BOOST_CHECK_EQUAL(c->getMonth_(), 11);
-//        BOOST_CHECK_EQUAL(c->getDay_(), 22);
-//    }
+    BOOST_AUTO_TEST_CASE(sample_unit_test) {
+        std::unique_ptr<Game> g=std::make_unique<Game>();
+        g->addCollection("czlowiek");
+        BOOST_CHECK_EQUAL(g->sizeOfCollections(),1);
+    }
 
 
 
