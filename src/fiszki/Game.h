@@ -10,15 +10,19 @@
 #include <vector>
 #include "Collection.h"
 
+
+/*!
+ * \brief Klasa trzymająca wszystkie kolekcje użytkownika.
+ */
 class Game {
 private:
-    std::vector<std::unique_ptr<Collection>> collections_;
-    std::string userName_;
-    unsigned int actualFCId_;
+    std::vector<std::unique_ptr<Collection>> collections_;//!<wektor wskaźników na kolekcje użytkownika
+    std::string userName_;//!<nazwa użytkownika
+    unsigned int actualFCId_;//!<Największe ID fiszki znajdującej się w bazie. Trzymamy je, żeby wiedzieć z jakim ID stworzymy kolejną
 public:
     Game();
-    void addCollection(std::string);
-    unsigned long numberOfCollections();
+    void addCollection(std::string);//!<Dodawanie kolekcji o zadanej nazwie
+    unsigned long numberOfCollections();//!<Zwraca ile kolekcji jest w bazie użytkownika.
     void updateFCId();
 };
 
