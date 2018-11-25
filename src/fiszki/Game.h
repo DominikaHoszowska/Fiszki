@@ -9,6 +9,7 @@
 #include <memory>
 #include <vector>
 #include "Collection.h"
+#include <sqlite3/sqlite3.h>
 
 
 /*!
@@ -19,6 +20,7 @@ private:
     std::vector<std::unique_ptr<Collection>> collections_;//!<wektor wskaźników na kolekcje użytkownika
     std::string userName_;//!<nazwa użytkownika
     unsigned int actualFCId_;//!<Największe ID fiszki znajdującej się w bazie. Trzymamy je, żeby wiedzieć z jakim ID stworzymy kolejną
+    sqlite3* db_;
 public:
     Game();
     void addCollection(std::string);//!<Dodawanie kolekcji o zadanej nazwie

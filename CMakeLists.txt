@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.12)
 project(ZPR)
 set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_FLAGS "-pthread")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 find_package(Boost 1.65 REQUIRED COMPONENTS unit_test_framework)
 

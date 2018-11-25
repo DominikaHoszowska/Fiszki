@@ -19,7 +19,6 @@ public:
     Collection(const std::string &name_);
     void addFC(std::string&, std::string&,unsigned int);
 
-
 };
 
 
