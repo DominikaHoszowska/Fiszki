@@ -13,7 +13,18 @@
 class Collection {
 private:
     std::string name_;
+public:
+    const std::string &getName_() const;
+
+    void setName_(const std::string &name_);
+
+    unsigned int getId_() const;
+
+    void setId_(unsigned int id_);
+
+private:
     std::vector<std::unique_ptr<Card>> cards_;
+    unsigned int id_;
 public:
 
     Collection(const std::string &name_);

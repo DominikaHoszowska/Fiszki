@@ -21,6 +21,10 @@ private:
     std::string userName_;//!<nazwa użytkownika
     unsigned int actualFCId_;//!<Największe ID fiszki znajdującej się w bazie. Trzymamy je, żeby wiedzieć z jakim ID stworzymy kolejną
     sqlite3* db_;
+    int src_;
+public:
+    int getSrc_() const;
+
 public:
     Game();
     void addCollection(std::string);//!<Dodawanie kolekcji o zadanej nazwie
