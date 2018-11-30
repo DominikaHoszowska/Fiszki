@@ -25,3 +25,7 @@ unsigned int Collection::getId_() const {
 void Collection::setId_(unsigned int id_) {
     Collection::id_ = id_;
 }
+
+const std::shared_ptr<Game> &Collection::getGame_() const {
+    return game_;
+}

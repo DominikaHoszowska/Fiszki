@@ -1,10 +1,9 @@
 //
 // Created by dominika on 19.11.18.
 //
-#define day 86400
 #include <ctime>
 #include "Card.h"
-
+#include <memory>
 void Card::updateEF(unsigned int value) {
     //TODO
 
@@ -19,7 +18,7 @@ const std::string &Card::getEng_() const {
     return eng_;
 }
 
-Card::Card(unsigned int id_, const std::string &pl_, const std::string &eng_) : id_(id_), pl_(pl_), eng_(eng_){
+Card::Card(const std::string &pl_, const std::string &eng_) :  pl_(pl_), eng_(eng_){
     EF_=3.5;
 //    setTimeToRepeat(0);
 }
@@ -52,13 +51,29 @@ void Card::setEF_(double EF_) {
     Card::EF_ = EF_;
 }
 
-time_t Card::getTimeToRepeat_() const {
+const boost::gregorian::date &Card::getTimeToRepeat_() const {
     return timeToRepeat_;
 }
 
-void Card::setTimeToRepeat_(time_t timeToRepeat_) {
+void Card::setTimeToRepeat_(const boost::gregorian::date &timeToRepeat_) {
     Card::timeToRepeat_ = timeToRepeat_;
 }
+
+Card::Card(unsigned int id_, const std::string &pl_, const std::string &eng_) : id_(id_), pl_(pl_), eng_(eng_) {
+    EF_=3.5;
+    timeToRepeat_=boost::gregorian::day_clock::local_day();
+}
+
+void Card::insertCardtoDB() {
+    char *err_msg = nullptr;
+    std:: string sql="INSERT INTO CARDS VALUES("+ std::to_string(this->getId_()) +",'"+this->getPl_()+"','"+this->getEng_()+"',1);";
+    int src_ = sqlite3_exec(getCollection_()->getGame_()->getDb_(), sql.c_str(), nullptr, nullptr, &err_msg);
+}
+
+const std::shared_ptr <Collection> &Card::getCollection_() const {
+    return collection_;
+}
+
 
 
 

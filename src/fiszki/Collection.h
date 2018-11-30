@@ -4,12 +4,13 @@
 
 #ifndef ZPR_COLLECTION_H
 #define ZPR_COLLECTION_H
-
 #include <string>
 #include <vector>
-#include "Card.h"
 #include <memory>
-
+#include "Game.h"
+#include "Card.h"
+class Game;
+class Card;
 class Collection {
 private:
     std::string name_;
@@ -25,9 +26,13 @@ public:
 private:
     std::vector<std::unique_ptr<Card>> cards_;
     unsigned int id_;
+    std::shared_ptr<Game> game_;
+public:
+    const std::shared_ptr<Game> &getGame_() const;
+
 public:
 
-    Collection(const std::string &name_);
+    explicit Collection(const std::string &name_);
     void addFC(std::string&, std::string&,unsigned int);
 
 };
