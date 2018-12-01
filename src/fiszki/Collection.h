@@ -21,13 +21,13 @@ private:
     unsigned int id_; //! unikalne ID
     std::shared_ptr<Game> game_;//!wskaźnik na grę
 public:
-    const std::string &getName_() const;
-    const std::shared_ptr<Game> &getGame_() const;
-    void setName_(const std::string &name_);
-    unsigned int getId_() const;
-    void setId_(unsigned int id_);
-    explicit Collection(const std::string &name_);
-    void addFC(std::string&, std::string&,unsigned int);
+    const std::string &getName_() const; //! zwraca nazwę kolekcji
+    const std::shared_ptr<Game> &getGame_() const; //! zwraca wskaźnik do gry
+    void setName_(const std::string &name_); //! ustawianie nazwy kolekcji
+    unsigned int getId_() const; //! zwraca ID kolekcji
+    void setId_(unsigned int id_);//! ustawia ID kolekcji
+    explicit Collection(const std::string &name_); //! konstruktor
+    void addFC(std::string&, std::string&,unsigned int); //! dodawanie fiszki do kolekcji
 
 };
 
