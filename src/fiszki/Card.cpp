@@ -68,6 +68,7 @@ void Card::insertCardtoDB() {
     char *err_msg = nullptr;
     std:: string sql="INSERT INTO CARDS VALUES("+ std::to_string(this->getId_()) +",'"+this->getPl_()+"','"+this->getEng_()+"',1);";
     int src_ = sqlite3_exec(getCollection_()->getGame_()->getDb_(), sql.c_str(), nullptr, nullptr, &err_msg);
+    //TODO wyjątek
 }
 
 const std::shared_ptr <Collection> &Card::getCollection_() const {

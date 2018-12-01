@@ -19,11 +19,12 @@ unsigned long Game::numberOfCollections() {
 
 
 Game::Game() {
-    actualFCId_=0;
+    int src;
+    actualCollId_=0;
     char *err_msg = nullptr;
 
-    src_=sqlite3_open("baza.db", &db_);
-    if(src_){
+    src=sqlite3_open("baza.db", &db_);
+    if(src){
         std::cout<<"Nie mogę otworzyć bazy";}
     else {
         std::string sql = "CREATE TABLE COLLECTIONS("\
@@ -35,12 +36,12 @@ Game::Game() {
         "ENG TEXT NOT NULL,"\
         "COLLECTION_ID INT,"\
         "FOREIGN KEY (COLLECTION_ID) REFERENCES COLLECIONS(ID));";
-        src_ = sqlite3_exec(db_, sql.c_str(), nullptr, nullptr, &err_msg);
+        src = sqlite3_exec(db_, sql.c_str(), nullptr, nullptr, &err_msg);
         unsigned int a=4;
         std::string pl="kot";
         std::string eng="car";
         sql="INSERT INTO CARDS VALUES("+ std::to_string(a) +",'"+pl+"','"+eng+"',1);";
-        src_ = sqlite3_exec(db_, sql.c_str(), nullptr, nullptr, &err_msg);
+        src = sqlite3_exec(db_, sql.c_str(), nullptr, nullptr, &err_msg);
         std::cout<<sql<<"!!!!";
         sqlite3_close(db_);
     }
@@ -83,13 +84,7 @@ Game::Game() {
 
 }
 
-void Game::updateFCId() {
-    ++(this->actualFCId_);
-}
 
-int Game::getSrc_() const {
-    return src_;
-}
 
 sqlite3 *Game::getDb_() const {
     return db_;
