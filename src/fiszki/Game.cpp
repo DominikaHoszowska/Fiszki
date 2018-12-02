@@ -89,3 +89,19 @@ Game::Game() {
 sqlite3 *Game::getDb_() const {
     return db_;
 }
+
+bool Game::getGameMode_() const {
+    return gameMode_;
+}
+
+void Game::setGameMode_(bool gameMode_) {
+    Game::gameMode_ = gameMode_;
+}
+
+bool Game::getLanguage_() const {
+    return language_;
+}
+
+void Game::setLanguage_(bool language_) {
+    Game::language_ = language_;
+}

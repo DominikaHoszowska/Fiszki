@@ -19,12 +19,27 @@ private:
     std::string userName_;//!<nazwa użytkownika
     unsigned int actualCollId_;//!<Największe ID kolekcji znajdującej się w bazie. Trzymamy je, żeby wiedzieć z jakim ID stworzymy kolejną
     sqlite3* db_; //! wskaźnik do bazy danych
+    bool gameMode_;//! tryb gry 0-samoocena, 1-wpisywanie
+    bool language_;//! 0-polski->angielski, 1-angielski->polski
 
 public:
+
+    //GETTERS:
+
+    bool getGameMode_() const;
+    bool getLanguage_() const;
     sqlite3 *getDb_() const;//! zwraca wskaźnik do bazy danych
+    unsigned long numberOfCollections();//!<Zwraca ile kolekcji jest w bazie użytkownika.
+
+    //SETTERS:
+
+    void setGameMode_(bool gameMode_);
+    void setLanguage_(bool language_);
+
+    //OTHERS:
+
     Game(); //!konstruktor
     void addCollection(std::string);//!<Dodawanie kolekcji o zadanej nazwie
-    unsigned long numberOfCollections();//!<Zwraca ile kolekcji jest w bazie użytkownika.
 };
 
 
