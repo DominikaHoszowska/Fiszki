@@ -1,5 +1,5 @@
 //
-// Created by dominika on 19.11.18.
+// Created by Dominika on 19.11.18.
 //
 
 #ifndef ZPR_CARD_H
