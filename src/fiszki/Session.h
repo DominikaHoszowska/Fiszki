@@ -12,11 +12,29 @@
  */
 class Session {
 private:
-    std::vector<Card> cards_;//! karty do nauki w danej sesji
+    std::vector<std::shared_ptr<Card>> cards_;//! karty do nauki w danej sesji
     std::shared_ptr<Game> game_;//! wskaźnik do gry
+    std::shared_ptr<Collection> collection_;//! wskaźnik do aktualnie nauczanej kolekcji
+
 public:
-   void updateCardsToLearn(std::shared_ptr<Game>);
-   std::shared_ptr<Card> giveNextCard(std::shared_ptr<Game>);
+
+    //GETTERS:
+
+    const std::shared_ptr<Game> &getGame_() const;
+    const std::shared_ptr<Collection> &getCollection_() const;
+
+    //SETTERS:
+
+    void setGame_(const std::shared_ptr<Game> &game_);
+    void setCollection_(const std::shared_ptr<Collection> &collection_);
+
+    //OTHERS:
+
+    void updateCardsToLearn();//!Prosi kolekcję o dodatnie kart do nauki
+    std::shared_ptr<Card> giveNextCard();//zwraca kolejną kartę do nauki
+    void addCardtoLearn(std::shared_ptr<Card>);
+
+
 };
 
 
