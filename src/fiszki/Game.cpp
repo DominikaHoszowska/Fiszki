@@ -78,6 +78,7 @@ Game::Game() {
 //     Collection collection=Collection("a");
 //     storage.insert(Card(1,std::string("pies"),std::string("dog")));
     this->loadCollectionsFromDB();
+    this->setActualCollId();
 }
 
 
@@ -177,4 +178,24 @@ void Game::addCollection(unsigned int id, std::string name) {
 
     std::shared_ptr<Collection> c=std::make_shared<Collection>(name,id,this);
     this->collections_.push_back(c);
+}
+
+void Game::addCollection(std::string name) {
+    this->addCollection(actualCollId_+1,name);
+    actualCollId_+=1;
+
+}
+
+void Game::setActualCollId() {
+    std::vector<std::shared_ptr<Collection>>:: iterator i;
+        actualCollId_=0;
+
+    for(i=collections_.begin();i!=collections_.end();++i)
+    {
+        if(i->get()->getId_()>actualCollId_)
+        {
+            actualCollId_=i->get()->getId_();
+        }
+    }
+
 }

@@ -41,7 +41,7 @@ public:
     Game(); //!konstruktor
 //    void addCollection(std::string);//!<Dodawanie kolekcji o zadanej nazwie
     void addCollection(unsigned int, std::string);//!<Dodawanie kolekcji o zadanej nazwie i id
-
+    void addCollection(std::string);//!znajduje odpowidnie Id dla kolekcji i wywoluje tworzenie nowej kolekcji
     void addCard(std::string,std::string);//Dodawnie karty do kolejki do późniejszego dodania do kolekcji
     std::vector<std::pair<int,std::string>> getCollections(); //Zwraca kolekcje które są w grze
 private:
@@ -53,6 +53,7 @@ private:
     Language language_ =  Language::PL_ENG;
     std::vector<std::shared_ptr<Card>>cardsToAdd_;
     void loadCollectionsFromDB();
+    void setActualCollId();//!Sprawdza jakie jest nawiększe id wśród naszych kolekcji
 
 
 };
