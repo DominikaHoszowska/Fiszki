@@ -22,6 +22,8 @@ BOOST_AUTO_TEST_SUITE(sample_test_suite)
         game.setLanguage(Game::Language::PL_ENG);
         BOOST_CHECK(game.getLanguage_() == Game::Language::PL_ENG);
 
+        game.addCollection("czlowiekAA");
+      BOOST_CHECK_EQUAL(game.numberOfCollections(),1);
     }
 
 

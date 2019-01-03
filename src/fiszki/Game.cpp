@@ -10,9 +10,7 @@
 
 using namespace sqlite_orm;
 
-//void Game::addCollection(std::string name) {
-//    this->collections_.push_back(std::make_shared()<Collection>(name));
-//}
+
 
 unsigned long Game::numberOfCollections() {
     return (this->collections_).size();
@@ -27,10 +25,10 @@ Game::Game() {
         std::cout<<"Nie mogę otworzyć bazy";}
     else {
         std::string sql = "CREATE TABLE COLLECTIONS("\
-        "ID INT PRIMATY KEY NOT NULL,"\
+        "ID INT PRIMATY KEY NOT NULL UNIQUE,"\
         "NAME TEXT NOT NULL);"\
         "CREATE TABLE CARDS("\
-        "ID INT PRIMARY KEY NOT NULL,"\
+        "ID INT PRIMARY KEY NOT NULL UNIQUE,"\
         "PL TEXT NOT NULL,"\
         "ENG TEXT NOT NULL,"\
         "COLLECTION_ID INT,"\
@@ -175,16 +173,20 @@ void Game::loadCollectionsFromDB() {
 }
 
 void Game::addCollection(unsigned int id, std::string name) {
-    int src;
-    char *err_msg = nullptr;
+
     std::shared_ptr<Collection> c=std::make_shared<Collection>(name,id,this);
+
     this->collections_.push_back(c);
-    std::string sql="INSERT INTO COLLECTIONS VALUES("+ std::to_string(id) +",'"+name+"');";
-    src = sqlite3_exec(db_, sql.c_str(), nullptr, nullptr, &err_msg);
+
 
 }
 
 void Game::addCollection(std::string name) {
+
+    int src;
+    char *err_msg = nullptr;
+    std::string sql="INSERT INTO COLLECTIONS VALUES("+ std::to_string(actualCollId_+1) +",'"+name+"');";
+    src = sqlite3_exec(db_, sql.c_str(), nullptr, nullptr, &err_msg);
     this->addCollection(actualCollId_+1,name);
     actualCollId_+=1;
 
