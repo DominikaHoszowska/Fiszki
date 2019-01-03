@@ -9,10 +9,12 @@
 #include <vector>
 #include <sqlite3/sqlite3.h>
 #include "Collection.h"
+#include "Card.h"
 
 
 
 class Collection;
+class Card;
 /*!
  * \brief Klasa trzymająca wszystkie kolekcje użytkownika.
  */
@@ -37,6 +39,7 @@ public:
 
     Game(); //!konstruktor
     void addCollection(std::string);//!<Dodawanie kolekcji o zadanej nazwie
+    void addCard(std::string,std::string);//Dodawnie karty do kolejki do późniejszego dodoania do kolekcji
 
 private:
 
@@ -45,6 +48,7 @@ private:
     unsigned int actualCollId_;//!<Największe ID kolekcji znajdującej się w bazie. Trzymamy je, żeby wiedzieć z jakim ID stworzymy kolejną
     sqlite3* db_; //! wskaźnik do bazy danych
     Language language_ =  Language::PL_ENG;//! 0-polski->angielski, 1-angielski->polski
+    std::vector<std::shared_ptr<Card>>cardsToAdd_;
 
 };
 

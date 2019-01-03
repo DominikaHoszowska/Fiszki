@@ -98,3 +98,8 @@ Game::Language Game::getLanguage_() const {
 void Game::setLanguage(Game::Language language) {
     language_ = language;
 }
+
+void Game::addCard(std::string pl, std::string eng) {
+    std::shared_ptr<Card> card (new Card(pl, eng));
+    this->cardsToAdd_.push_back(card);
+}
