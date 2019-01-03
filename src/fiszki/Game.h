@@ -30,6 +30,7 @@ public:
     Language getLanguage_() const;
     sqlite3 *getDb_() const;//! zwraca wskaźnik do bazy danych
     unsigned long numberOfCollections();//!<Zwraca ile kolekcji jest w bazie użytkownika.
+    std::shared_ptr<Collection> getCollection(unsigned int);
 
     //SETTERS:
 

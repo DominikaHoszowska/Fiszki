@@ -37,10 +37,10 @@ Game::Game() {
         "COLLECTION_ID INT,"\
         "FOREIGN KEY (COLLECTION_ID) REFERENCES COLLECIONS(ID));";
         src = sqlite3_exec(db_, sql.c_str(), nullptr, nullptr, &err_msg);
-        unsigned int a=4;
-        std::string pl="kot";
-        std::string eng="car";
-        sql="INSERT INTO CARDS VALUES("+ std::to_string(a) +",'"+pl+"','"+eng+"',1);";
+//        unsigned int a=4;
+//        std::string pl="kot";
+//        std::string eng="car";
+//        sql="INSERT INTO CARDS VALUES("+ std::to_string(a) +",'"+pl+"','"+eng+"',1);";
         src = sqlite3_exec(db_, sql.c_str(), nullptr, nullptr, &err_msg);
         std::cout<<sql<<"!!!!";
         sqlite3_close(db_);
@@ -112,4 +112,17 @@ std::vector<std::pair<int, std::string>> Game::getCollections() {
         collections.push_back(make_pair(i->get()->getId_(),i->get()->getName_()));
     }
     return collections;
+}
+
+std::shared_ptr<Collection> Game::getCollection(unsigned int id) {
+    std::vector<std::shared_ptr<Collection>>:: iterator i;
+    for(i=collections_.begin();i!=collections_.end();++i)
+    {
+        if(i->get()->getId_()==id)
+        {
+            return *i;
+        }
+    }
+return nullptr;
+
 }
