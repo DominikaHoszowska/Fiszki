@@ -18,12 +18,10 @@ BOOST_AUTO_TEST_SUITE(sample_test_suite)
 
     BOOST_AUTO_TEST_CASE(sample_unit_test) {
 
-        Game game;
+        Game game=Game();
+        game.setLanguage(Game::Language::PL_ENG);
         BOOST_CHECK(game.getLanguage_() == Game::Language::PL_ENG);
 
-        std::unique_ptr<Game> g=std::make_unique<Game>();
-        g->addCollection("czlowiek");
-        BOOST_CHECK_EQUAL(g->numberOfCollections(),1);
     }
 
 

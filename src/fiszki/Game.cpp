@@ -10,9 +10,9 @@
 
 using namespace sqlite_orm;
 
-void Game::addCollection(std::string name) {
-    this->collections_.push_back(std::make_unique<Collection>(name));
-}
+//void Game::addCollection(std::string name) {
+//    this->collections_.push_back(std::make_shared()<Collection>(name));
+//}
 
 unsigned long Game::numberOfCollections() {
     return (this->collections_).size();
@@ -20,7 +20,6 @@ unsigned long Game::numberOfCollections() {
 
 Game::Game() {
     int src;
-    actualCollId_=0;
     char *err_msg = nullptr;
 
     src=sqlite3_open("baza.db", &db_);
@@ -41,9 +40,6 @@ Game::Game() {
 //        std::string pl="kot";
 //        std::string eng="car";
 //        sql="INSERT INTO CARDS VALUES("+ std::to_string(a) +",'"+pl+"','"+eng+"',1);";
-        src = sqlite3_exec(db_, sql.c_str(), nullptr, nullptr, &err_msg);
-        std::cout<<sql<<"!!!!";
-        sqlite3_close(db_);
     }
 
         /*  auto cardTable = make_table("Cards",
@@ -81,7 +77,7 @@ Game::Game() {
 //                                 collectionsTable, cardTable);
 //     Collection collection=Collection("a");
 //     storage.insert(Card(1,std::string("pies"),std::string("dog")));
-
+    this->loadCollectionsFromDB();
 }
 
 
@@ -125,4 +121,60 @@ std::shared_ptr<Collection> Game::getCollection(unsigned int id) {
     }
 return nullptr;
 
+}
+
+
+
+/*
+ * Arguments:
+ *
+ *   unused - nie używamy
+ *    count - liczba kolumn
+ *     data - wiersze
+ *  columns - kolumny
+ */
+static int callbackFuctionForCollections(void *unused,int count, char** data, char **columns)
+{
+    int idx;
+    for(idx=0;idx<count;idx++)
+    {
+        std::cout<<data[idx]<<std::endl;
+    }
+}
+void Game::loadCollectionsFromDB() {
+//    int src;
+//    char *err_msg = nullptr;
+//    std::string sql="SELECT * FROM COLLECTIONS;";
+//    src = sqlite3_exec(db_, sql.c_str(), callbackFuctionForCollections, nullptr, &err_msg);
+    sqlite3_stmt *stmt;
+    const char *sql = "SELECT * FROM Collections";
+    int rc = sqlite3_prepare_v2(db_, sql, -1, &stmt, nullptr);
+    if (rc != SQLITE_OK) {
+//        std::cout<<"error: "<<sqlite3_errmsg(db_);
+
+        //TODO bug
+        return;
+    }
+    while ((rc = sqlite3_step(stmt)) == SQLITE_ROW) {
+        int id           = sqlite3_column_int (stmt, 0);
+        const unsigned char *name = sqlite3_column_text(stmt, 1);
+        std::string name2= reinterpret_cast<const char*>(name);
+        this->addCollection(id, name2);
+
+    }
+    if (rc != SQLITE_DONE) {
+//        std::cout<<"error: "<< sqlite3_errmsg(db_);
+//TODO bug
+    }
+    sqlite3_finalize(stmt);
+    sqlite3_close(db_);
+
+    //TODO
+
+}
+
+void Game::addCollection(unsigned int id, std::string name) {
+
+    std::shared_ptr<Collection> c=std::make_shared<Collection>(name,id,this);
+    this->collections_.push_back(c);
 }
