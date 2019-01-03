@@ -12,6 +12,7 @@
 #include <chrono>
 #include <thread>
 #include <fiszki/Game.h>
+#include <fiszki/Card.h>
 
 BOOST_AUTO_TEST_SUITE(sample_test_suite)
 
@@ -22,8 +23,8 @@ BOOST_AUTO_TEST_SUITE(sample_test_suite)
         game.setLanguage(Game::Language::PL_ENG);
         BOOST_CHECK(game.getLanguage_() == Game::Language::PL_ENG);
 
-        game.addCollection("czlowiekAA");
-      BOOST_CHECK_EQUAL(game.numberOfCollections(),1);
+
+      BOOST_CHECK_EQUAL(Card::checkCorrectnessW("]]"),0);
     }
 
 

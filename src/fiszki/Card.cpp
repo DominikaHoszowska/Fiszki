@@ -76,8 +76,14 @@ const std::shared_ptr <Collection> &Card::getCollection_() const {
 }
 
  bool Card::checkCorrectnessW(const std::string &word) {
-    //TODO
-    return false;
+    if(word.empty())
+        return false;
+    for(char letter:word)
+    {
+        if(!((letter>='A'&&letter<='Z')||(letter>='a'&&letter<='z')||(letter==32)||(letter==45)||(letter==39)))
+            return false;
+    }
+    return true;
 }
 
 
