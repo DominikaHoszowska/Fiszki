@@ -39,11 +39,12 @@ public:
 
     Game(); //!konstruktor
     void addCollection(std::string);//!<Dodawanie kolekcji o zadanej nazwie
-    void addCard(std::string,std::string);//Dodawnie karty do kolejki do późniejszego dodoania do kolekcji
+    void addCard(std::string,std::string);//Dodawnie karty do kolejki do późniejszego dodania do kolekcji
+    std::vector<std::pair<int,std::string>> getCollections(); //Zwraca kolekcje które są w grze
 
 private:
 
-    std::vector<std::unique_ptr<Collection>> collections_;//!<wektor wskaźników na kolekcje użytkownika
+    std::vector<std::shared_ptr<Collection>> collections_;//!<wektor wskaźników na kolekcje użytkownika
     std::string userName_;//!<nazwa użytkownika
     unsigned int actualCollId_;//!<Największe ID kolekcji znajdującej się w bazie. Trzymamy je, żeby wiedzieć z jakim ID stworzymy kolejną
     sqlite3* db_; //! wskaźnik do bazy danych

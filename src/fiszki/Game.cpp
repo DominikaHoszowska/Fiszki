@@ -103,3 +103,13 @@ void Game::addCard(std::string pl, std::string eng) {
     std::shared_ptr<Card> card (new Card(pl, eng));
     this->cardsToAdd_.push_back(card);
 }
+
+std::vector<std::pair<int, std::string>> Game::getCollections() {
+    std::vector<std::pair<int, std::string>> collections;
+    std::vector<std::shared_ptr<Collection>>:: iterator i;
+    for(i=collections_.begin();i!=collections_.end();++i)
+    {
+        collections.push_back(make_pair(i->get()->getId_(),i->get()->getName_()));
+    }
+    return collections;
+}
