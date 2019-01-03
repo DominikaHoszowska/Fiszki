@@ -7,6 +7,7 @@
 #include <sqlite3/sqlite3.h>
 #include <sqlite3/sqlite_orm.h>
 #include "Game.h"
+
 using namespace sqlite_orm;
 
 void Game::addCollection(std::string name) {
@@ -16,7 +17,6 @@ void Game::addCollection(std::string name) {
 unsigned long Game::numberOfCollections() {
     return (this->collections_).size();
 }
-
 
 Game::Game() {
     int src;
@@ -90,18 +90,11 @@ sqlite3 *Game::getDb_() const {
     return db_;
 }
 
-bool Game::getGameMode_() const {
-    return gameMode_;
-}
 
-void Game::setGameMode_(bool gameMode_) {
-    Game::gameMode_ = gameMode_;
-}
-
-bool Game::getLanguage_() const {
+Game::Language Game::getLanguage_() const {
     return language_;
 }
 
-void Game::setLanguage_(bool language_) {
-    Game::language_ = language_;
+void Game::setLanguage(Game::Language language) {
+    language_ = language;
 }

@@ -75,6 +75,11 @@ const std::shared_ptr <Collection> &Card::getCollection_() const {
     return collection_;
 }
 
+ bool Card::checkCorrectnessW(const std::string &word) {
+    //TODO
+    return true;
+}
+
 
 
 

@@ -31,8 +31,8 @@ public:
     //OTHERS:
 
     void updateCardsToLearn();//!Prosi kolekcję o dodatnie kart do nauki
-    std::shared_ptr<Card> giveNextCard();//zwraca kolejną kartę do nauki
-    void addCardtoLearn(std::shared_ptr<Card>);
+    std::shared_ptr<Card> giveNextCard();//!zwraca kolejną kartę do nauki
+    void addCardtoLearn(std::shared_ptr<Card>); //!dodaje kartę do nauki do sesji
 
 
 };

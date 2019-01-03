@@ -49,6 +49,7 @@ public:
     void insertCardtoDB(); //! funkcja wstawiająca fiszkę do bazy danych
 
     const std::shared_ptr <Collection> &getCollection_() const; //! zwraca wskaźnik na kolekcję do której przypisana jest fiszka
+    static bool checkCorrectnessW(const std::string &word);//!sprawdza czy dany string jest poprawnym słowem
 };
 
 #endif //ZPR_CARD_H

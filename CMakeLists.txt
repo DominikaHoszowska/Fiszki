@@ -12,3 +12,6 @@ include_directories(src)
 add_subdirectory(src)
 add_subdirectory(tests)
 
+
+install(TARGETS fiszki sqlite3 DESTINATION /usr/local/lib/)
+#install(FILES)
