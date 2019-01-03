@@ -49,7 +49,12 @@ private:
     std::vector<std::shared_ptr<Collection>> collections_;//!<wektor wskaźników na kolekcje użytkownika
     std::string userName_;//!<nazwa użytkownika
     unsigned int actualCollId_;//!<Największe ID kolekcji znajdującej się w bazie. Trzymamy je, żeby wiedzieć z jakim ID stworzymy kolejną
-    sqlite3* db_; //! wskaźnik do bazy danych
+    sqlite3* db_;
+public:
+    void setDb_(sqlite3 *db_);
+
+private:
+    //! wskaźnik do bazy danych
     Language language_ =  Language::PL_ENG;
     std::vector<std::shared_ptr<Card>>cardsToAdd_;
     void loadCollectionsFromDB();

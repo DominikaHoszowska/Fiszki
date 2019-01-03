@@ -175,9 +175,13 @@ void Game::loadCollectionsFromDB() {
 }
 
 void Game::addCollection(unsigned int id, std::string name) {
-
+    int src;
+    char *err_msg = nullptr;
     std::shared_ptr<Collection> c=std::make_shared<Collection>(name,id,this);
     this->collections_.push_back(c);
+    std::string sql="INSERT INTO COLLECTIONS VALUES("+ std::to_string(id) +",'"+name+"');";
+    src = sqlite3_exec(db_, sql.c_str(), nullptr, nullptr, &err_msg);
+
 }
 
 void Game::addCollection(std::string name) {
@@ -198,4 +202,8 @@ void Game::setActualCollId() {
         }
     }
 
+}
+
+void Game::setDb_(sqlite3 *db_) {
+    Game::db_ = db_;
 }
