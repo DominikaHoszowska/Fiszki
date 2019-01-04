@@ -25,7 +25,10 @@ BOOST_AUTO_TEST_SUITE(sample_test_suite)
 
 
       BOOST_CHECK_EQUAL(Card::checkCorrectnessW("]]"),0);
-    }
+      Collection collection=Collection("samochód",1,&game) ;
+      collection.addFC("dom","house");
+
+}
 
 
 

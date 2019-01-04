@@ -40,7 +40,6 @@ public:
     //OTHERS:
 
     Game(); //!konstruktor
-//    void addCollection(std::string);//!<Dodawanie kolekcji o zadanej nazwie
     void addCollection(unsigned int, std::string);//!<Dodawanie kolekcji o zadanej nazwie i id
     void addCollection(std::string);//!znajduje odpowidnie Id dla kolekcji i wywoluje tworzenie nowej kolekcji
     void addCard(std::string,std::string);//!Dodawnie karty do kolejki do późniejszego dodania do kolekcji

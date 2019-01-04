@@ -25,14 +25,14 @@ Game::Game() {
         std::cout<<"Nie mogę otworzyć bazy";}
     else {
         std::string sql = "CREATE TABLE COLLECTIONS("\
-        "ID INT PRIMATY KEY NOT NULL UNIQUE,"\
+        "ID INT PRIMARY KEY NOT NULL,"\
         "NAME TEXT NOT NULL);"\
         "CREATE TABLE CARDS("\
-        "ID INT PRIMARY KEY NOT NULL UNIQUE,"\
+        "ID INT PRIMARY KEY NOT NULL ,"\
         "PL TEXT NOT NULL,"\
         "ENG TEXT NOT NULL,"\
         "COLLECTION_ID INT,"\
-        "FOREIGN KEY (COLLECTION_ID) REFERENCES COLLECIONS(ID));";
+        "FOREIGN KEY (COLLECTION_ID) REFERENCES COLLECTIONS(ID));";
         src = sqlite3_exec(db_, sql.c_str(), nullptr, nullptr, &err_msg);
 
     }

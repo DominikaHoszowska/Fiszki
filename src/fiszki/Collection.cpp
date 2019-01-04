@@ -45,11 +45,16 @@ void Collection::addFC(const std::string & pl, const std::string &eng) {
     char *err_msg = nullptr;
 
 
-    std::string sql="INSERT INTO CARDS VALUES("+ std::to_string(actualFCId_+1) +",'"+pl+"','"+eng+"');";
+    std::string sql="INSERT INTO CARDS VALUES(";
+    sql+=std::to_string(actualFCId_+1);
+    sql+=",'"+pl+"','"+eng+"'";
     sql+=",";
     sql+=std::to_string(this->getId_());
-    sqlite3_exec(this->getGame_()->getDb_(), sql.c_str(), nullptr, nullptr, &err_msg);
+    sql+=");";
 
+    std::cout<<sql;
+    sqlite3_exec(this->getGame_()->getDb_(), sql.c_str(), nullptr, nullptr, &err_msg);
+    std::cout<<err_msg;
     actualFCId_+=1;
 }
 
