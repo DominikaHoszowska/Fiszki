@@ -44,8 +44,8 @@ public:
     void addCollection(unsigned int, std::string);//!<Dodawanie kolekcji o zadanej nazwie i id
     void addCollection(std::string);//!znajduje odpowidnie Id dla kolekcji i wywoluje tworzenie nowej kolekcji
     void addCard(std::string,std::string);//!Dodawnie karty do kolejki do późniejszego dodania do kolekcji
-    std::vector<std::pair<int,std::string>> getCollections(); //!Zwraca kolekcje które są w grze
-    void addCardsToCollection(std::string&);//!Dodaje karty ze schowka do wybranej kolekcji
+    std::vector<std::string> getCollections(); //!Zwraca kolekcje które są w grze
+    void addCardsToCollection(std::string);//!Dodaje karty ze schowka do wybranej kolekcji
 private:
 
     std::vector<std::shared_ptr<Collection>> collections_;//!<wektor wskaźników na kolekcje użytkownika

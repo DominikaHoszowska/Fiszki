@@ -61,12 +61,12 @@ void Game::addCard(std::string pl, std::string eng) {
     this->cardsToAdd_.push_back(card);
 }
 
-std::vector<std::pair<int, std::string>> Game::getCollections() {
-    std::vector<std::pair<int, std::string>> collections;
+std::vector<std::string> Game::getCollections() {
+    std::vector<std::string> collections;
     std::vector<std::shared_ptr<Collection>>:: iterator i;
     for(i=collections_.begin();i!=collections_.end();++i)
     {
-        collections.push_back(make_pair(i->get()->getId_(),i->get()->getName_()));
+        collections.push_back((i->get()->getName_()));
     }
     return collections;
 }
@@ -164,7 +164,7 @@ std::shared_ptr<Collection> Game::getCollection(std::string& name) {
     return nullptr;
 }
 
-void Game::addCardsToCollection(std::string& collectionName) {
+void Game::addCardsToCollection(std::string collectionName) {
     std::shared_ptr<Collection> c=getCollection(collectionName);
     std::vector<std::shared_ptr<Card>>:: iterator i;
     for(i=cardsToAdd_.begin();i!=cardsToAdd_.end();++i)
