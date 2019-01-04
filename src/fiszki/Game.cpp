@@ -153,3 +153,23 @@ void Game::setActualCollId() {
 void Game::setDb_(sqlite3 *db_) {
     Game::db_ = db_;
 }
+
+std::shared_ptr<Collection> Game::getCollection(std::string& name) {
+    std::vector<std::shared_ptr<Collection>>:: iterator i;
+    for(i=collections_.begin();i!=collections_.end();++i)
+    {
+        if(!i->get()->getName_().compare(name))
+            return *i;
+    }
+    return nullptr;
+}
+
+void Game::addCardsToCollection(std::string& collectionName) {
+    std::shared_ptr<Collection> c=getCollection(collectionName);
+    std::vector<std::shared_ptr<Card>>:: iterator i;
+    for(i=cardsToAdd_.begin();i!=cardsToAdd_.end();++i)
+    {
+        c->addFC(i->get()->getPl_(),i->get()->getEng_());
+    }
+    cardsToAdd_.clear();
+}
