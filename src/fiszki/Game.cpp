@@ -34,47 +34,9 @@ Game::Game() {
         "COLLECTION_ID INT,"\
         "FOREIGN KEY (COLLECTION_ID) REFERENCES COLLECIONS(ID));";
         src = sqlite3_exec(db_, sql.c_str(), nullptr, nullptr, &err_msg);
-//        unsigned int a=4;
-//        std::string pl="kot";
-//        std::string eng="car";
-//        sql="INSERT INTO CARDS VALUES("+ std::to_string(a) +",'"+pl+"','"+eng+"',1);";
+
     }
 
-        /*  auto cardTable = make_table("Cards",
-                                      make_column("id",
-                                                  &Card::getId_, //getter,
-                                                  &Card::setId_, //setter
-                                                  primary_key()),
-                                      make_column("pl",
-                                                  &Card::setPl_, //setter
-                                                  &Card::getPl_ //getter,
-                                      ),
-                                      make_column("eng",
-                                                  &Card::setEng_,
-                                                  &Card::getEng_),
-                                      make_column("Ef",
-                                                  &Card::setEF_,
-                                                  &Card::getEF_),
-                                      make_column("date",
-                                                  &Card::setTimeToRepeat_,
-                                                  &Card::getTimeToRepeat_)
-          );
-
-          auto collectionsTable = make_table("Collections",
-                                             make_column("id",
-                                                         &Collection::setId_, //setter
-                                                         &Collection::getId_, //getter,
-                                                         autoincrement(),
-                                                         primary_key()),
-                                             make_column("name",
-                                                         &Collection::setName_,
-                                                         &Collection::getName_));
-
-      */
-//     auto storage = make_storage("dane.sqlite",
-//                                 collectionsTable, cardTable);
-//     Collection collection=Collection("a");
-//     storage.insert(Card(1,std::string("pies"),std::string("dog")));
     this->loadCollectionsFromDB();
     this->setActualCollId();
 }
@@ -124,27 +86,9 @@ return nullptr;
 
 
 
-/*
- * Arguments:
- *
- *   unused - nie używamy
- *    count - liczba kolumn
- *     data - wiersze
- *  columns - kolumny
- */
-static int callbackFuctionForCollections(void *unused,int count, char** data, char **columns)
-{
-    int idx;
-    for(idx=0;idx<count;idx++)
-    {
-        std::cout<<data[idx]<<std::endl;
-    }
-}
+
 void Game::loadCollectionsFromDB() {
-//    int src;
-//    char *err_msg = nullptr;
-//    std::string sql="SELECT * FROM COLLECTIONS;";
-//    src = sqlite3_exec(db_, sql.c_str(), callbackFuctionForCollections, nullptr, &err_msg);
+
     sqlite3_stmt *stmt;
     const char *sql = "SELECT * FROM Collections";
     int rc = sqlite3_prepare_v2(db_, sql, -1, &stmt, nullptr);
