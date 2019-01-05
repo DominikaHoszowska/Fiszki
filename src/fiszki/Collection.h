@@ -20,23 +20,18 @@ private:
     std::vector<std::shared_ptr<Card>> cards_; //! wektor wskaźników na fiszki
     unsigned int id_; //! unikalne ID
     Game* game_;//!wskaźnik na grę
-    unsigned int actualFCId_;//!<Największe ID fiszki znajdującej się w bazie. Trzymamy je, żeby wiedzieć z jakim ID stworzymy kolejną
-    unsigned int numberOfElements_;
 public:
     Game *getGame_() const;
 
 public:
     const std::string &getName_() const; //! zwraca nazwę kolekcji
-    void setName_(const std::string &name_); //! ustawianie nazwy kolekcji
     unsigned int getId_() const; //! zwraca ID kolekcji
     void setId_(unsigned int id_);//! ustawia ID kolekcji
     explicit Collection(const std::string &name_, unsigned int id_, Game* game_);
 
 
-    void addFC(std::string&, std::string&,unsigned int); //! dodawanie fiszki do kolekcji
-    void addFC(const std::string&, const std::string&); //! dodawanie fiszki do kolekcji
+    void addFC(const std::string&, const std::string&, unsigned int); //! dodawanie fiszki do kolekcji
     void loadFromDB();
-    void setActualFCId();
 };
 
 

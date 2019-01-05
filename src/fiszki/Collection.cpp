@@ -5,17 +5,11 @@
 #include "Collection.h"
 #include <sqlite3/sqlite3.h>
 
-void Collection::addFC(std::string &pl, std::string &eng, unsigned int id) {
-    this->cards_.push_back(std::make_shared<Card>(id,pl,eng));
-}
 
 const std::string &Collection::getName_() const {
     return name_;
 }
 
-void Collection::setName_(const std::string &name_) {
-    Collection::name_ = name_;
-}
 
 unsigned int Collection::getId_() const {
     return id_;
@@ -36,15 +30,15 @@ Game *Collection::getGame_() const {
     return game_;
 }
 
-void Collection::addFC(const std::string & pl, const std::string &eng) {
+void Collection::addFC(const std::string & pl, const std::string &eng, unsigned int id) {
 
-    std::shared_ptr<Card>c=std::make_shared<Card>(actualFCId_+1,pl,eng);
+    std::shared_ptr<Card>c=std::make_shared<Card>(id,pl,eng);
     this->cards_.push_back(c);
     char *err_msg = nullptr;
 
 
     std::string sql="INSERT INTO CARDS VALUES(";
-    sql+=std::to_string(actualFCId_+1);
+    sql+=std::to_string(id);
     sql+=",'"+pl+"','"+eng+"'";
     sql+=",";
     sql+=std::to_string(this->getId_());
@@ -53,7 +47,6 @@ void Collection::addFC(const std::string & pl, const std::string &eng) {
     std::cout<<sql;
     sqlite3_exec(this->getGame_()->getDb_(), sql.c_str(), nullptr, nullptr, &err_msg);
     std::cout<<err_msg;
-    actualFCId_+=1;
 }
 
 void Collection::loadFromDB() {
@@ -74,7 +67,6 @@ void Collection::loadFromDB() {
         cards_.push_back(std::make_shared<Card>(id,pl,eng,std::shared_ptr<Collection>(this)));
 
     }
-    this->setActualFCId();
 }
 //Collection::Collection(const std::string &name_) : name_(name_) {}
 int returnFunction(void *unused, int count, char **data, char **columns)
@@ -88,13 +80,5 @@ int returnFunction2(void *unused, int count, char **data, char **columns)
     return std::stoi(s);
 }
 
-void Collection::setActualFCId() {
-  actualFCId_=0;
-  for(auto i: cards_)
-  {
-      if(i.get()->getId_()>actualFCId_)
-          actualFCId_=i.get()->getId_();
 
-  }
-}
 

@@ -13,10 +13,6 @@ std::shared_ptr<Card> Session::giveNextCard() {
     return nullptr;
 }
 
-
-
-
-
 const std::shared_ptr<Collection> &Session::getCollection_() const {
     return collection_;
 }

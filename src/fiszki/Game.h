@@ -50,6 +50,7 @@ private:
     std::vector<std::shared_ptr<Collection>> collections_;//!<wektor wskaźników na kolekcje użytkownika
     std::string userName_;//!<nazwa użytkownika
     unsigned int actualCollId_;//!<Największe ID kolekcji znajdującej się w bazie. Trzymamy je, żeby wiedzieć z jakim ID stworzymy kolejną
+    unsigned int actualCardId_;//!największe ID karty znajdujacej sie bazie
     sqlite3* db_;    //! wskaźnik do bazy danych
     Language language_ =  Language::PL_ENG;
     std::vector<std::shared_ptr<Card>>cardsToAdd_;

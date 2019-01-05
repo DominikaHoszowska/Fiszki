@@ -170,7 +170,8 @@ void Game::addCardsToCollection(std::string collectionName) {
     std::vector<std::shared_ptr<Card>>:: iterator i;
     for(i=cardsToAdd_.begin();i!=cardsToAdd_.end();++i)
     {
-        c->addFC(i->get()->getPl_(),i->get()->getEng_());
+        c->addFC(i->get()->getPl_(),i->get()->getEng_(),actualCardId_+1);
+        ++actualCardId_;
     }
     cardsToAdd_.clear();
 }
