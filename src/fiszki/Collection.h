@@ -28,8 +28,6 @@ public:
     unsigned int getId_() const; //! zwraca ID kolekcji
     void setId_(unsigned int id_);//! ustawia ID kolekcji
     explicit Collection(const std::string &name_, unsigned int id_, Game* game_);
-
-
     void addFC(const std::string&, const std::string&, unsigned int); //! dodawanie fiszki do kolekcji
     void loadFromDB();
 };

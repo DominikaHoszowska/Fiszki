@@ -181,3 +181,16 @@ Game::~Game() {
 
 
 }
+
+bool Game::ifCardsToAddIsEmpty() {
+    return cardsToAdd_.empty();
+}
+
+bool Game::ifCollectionNameUnique(std::string& name) {
+    for(auto i:collections_)
+    {
+        if(!name.compare(i->getName_()))
+            return 0;
+    }
+    return 1;
+}

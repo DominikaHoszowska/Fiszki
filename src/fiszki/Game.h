@@ -36,7 +36,7 @@ public:
     //SETTERS:
 
     void setLanguage(Language language);
-    void setDb_(sqlite3 *db_);
+    void setDb_(sqlite3 *db_);//! ustawia baze danych, używana w FE
     //OTHERS:
 
     Game(); //!konstruktor
@@ -45,10 +45,11 @@ public:
     void addCard(std::string,std::string);//!Dodawnie karty do kolejki do późniejszego dodania do kolekcji
     std::vector<std::string> getCollections(); //!Zwraca kolekcje które są w grze
     void addCardsToCollection(std::string);//!Dodaje karty ze schowka do wybranej kolekcji
+    bool ifCardsToAddIsEmpty();//!zwraca czy są jakieś karty do dodatnia, używana w FE
+    bool ifCollectionNameUnique(std::string&);//! sprawdza czy nazwa kolekcji jest unikalana
 private:
 
     std::vector<std::shared_ptr<Collection>> collections_;//!<wektor wskaźników na kolekcje użytkownika
-    std::string userName_;//!<nazwa użytkownika
     unsigned int actualCollId_;//!<Największe ID kolekcji znajdującej się w bazie. Trzymamy je, żeby wiedzieć z jakim ID stworzymy kolejną
     unsigned int actualCardId_;//!największe ID karty znajdujacej sie bazie
     sqlite3* db_;    //! wskaźnik do bazy danych
