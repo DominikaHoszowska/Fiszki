@@ -78,12 +78,19 @@ const std::shared_ptr <Collection> &Card::getCollection_() const {
  bool Card::checkCorrectnessW(const std::string &word) {
     if(word.empty())
         return false;
-    for(char letter:word)
+    for(char32_t letter:word)
     {
-        if(!((letter>='A'&&letter<='Z')||(letter>='a'&&letter<='z')||(letter==32)||(letter==45)||(letter==39)))
-            return false;
+        if(!((std::isalpha(letter)||(letter==32)||(letter==45)||(letter==39))))
+            if(!(letter==206||letter==210||letter==230||letter==242||letter==245||letter==251||letter==253||letter==276||letter==344))
+                    return false;
     }
     return true;
+}
+
+Card::Card(unsigned int id_, const std::string &pl_, const std::string &eng_,
+           const std::shared_ptr<Collection> &collection_) : id_(id_), pl_(pl_), eng_(eng_), collection_(collection_) {
+    EF_=3.5;
+//    setTimeToRepeat(0);
 }
 
 

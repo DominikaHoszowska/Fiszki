@@ -54,7 +54,9 @@ private:
     Language language_ =  Language::PL_ENG;
     std::vector<std::shared_ptr<Card>>cardsToAdd_;
     void loadCollectionsFromDB();
-    void setActualCollId();//!Sprawdza jakie jest nawiększe id wśród naszych kolekcji
+    void setActualCollId();//!Sprawdza jakie jest na większe id wśród naszych kolekcji
+public:
+    virtual ~Game();
 };
 
 

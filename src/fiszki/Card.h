@@ -48,7 +48,12 @@ public:
     void setTimeToRepeat_(const boost::gregorian::date &timeToRepeat_);//! funkcja ustawiająca datę powtórki fiszki
     void insertCardtoDB(); //! funkcja wstawiająca fiszkę do bazy danych
 
-    const std::shared_ptr <Collection> &getCollection_() const; //! zwraca wskaźnik na kolekcję do której przypisana jest fiszka
+    const std::shared_ptr <Collection> &getCollection_() const;
+
+    Card(unsigned int id_, const std::string &pl_, const std::string &eng_,
+         const std::shared_ptr<Collection> &collection_);
+
+    //! zwraca wskaźnik na kolekcję do której przypisana jest fiszka
     static bool checkCorrectnessW(const std::string &word);//!sprawdza czy dany string jest poprawnym słowem
 };
 

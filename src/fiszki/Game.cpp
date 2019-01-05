@@ -8,6 +8,7 @@
 #include <sqlite3/sqlite_orm.h>
 #include "Game.h"
 
+
 using namespace sqlite_orm;
 
 
@@ -19,7 +20,7 @@ unsigned long Game::numberOfCollections() {
 Game::Game() {
     int src;
     char *err_msg = nullptr;
-
+    setlocale( LC_ALL, "" );
     src=sqlite3_open("baza.db", &db_);
     if(src){
         std::cout<<"Nie mogę otworzyć bazy";}
@@ -110,7 +111,6 @@ void Game::loadCollectionsFromDB() {
 //TODO bug
     }
     sqlite3_finalize(stmt);
-    sqlite3_close(db_);
 
     //TODO
 
@@ -166,10 +166,17 @@ std::shared_ptr<Collection> Game::getCollection(std::string& name) {
 
 void Game::addCardsToCollection(std::string collectionName) {
     std::shared_ptr<Collection> c=getCollection(collectionName);
+    c->loadFromDB();
     std::vector<std::shared_ptr<Card>>:: iterator i;
     for(i=cardsToAdd_.begin();i!=cardsToAdd_.end();++i)
     {
         c->addFC(i->get()->getPl_(),i->get()->getEng_());
     }
     cardsToAdd_.clear();
+}
+
+Game::~Game() {
+    sqlite3_close(db_);
+
+
 }
