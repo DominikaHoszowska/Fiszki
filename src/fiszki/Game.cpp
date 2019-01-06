@@ -194,3 +194,7 @@ bool Game::ifCollectionNameUnique(std::string& name) {
     }
     return 1;
 }
+
+void Game::clearCardsToAdd() {
+    cardsToAdd_.clear();
+}

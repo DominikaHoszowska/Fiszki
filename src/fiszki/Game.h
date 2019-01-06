@@ -47,6 +47,7 @@ public:
     void addCardsToCollection(std::string);//!Dodaje karty ze schowka do wybranej kolekcji
     bool ifCardsToAddIsEmpty();//!zwraca czy są jakieś karty do dodatnia, używana w FE
     bool ifCollectionNameUnique(std::string&);//! sprawdza czy nazwa kolekcji jest unikalana
+    void clearCardsToAdd();//!Czyści karty do dodatnia w przypadku rezygnacji użytkownika
 private:
 
     std::vector<std::shared_ptr<Collection>> collections_;//!<wektor wskaźników na kolekcje użytkownika

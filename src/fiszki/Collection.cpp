@@ -68,6 +68,19 @@ void Collection::loadFromDB() {
 
     }
 }
+
+bool Collection::checkCorrectnessC(const std::string &word) {
+    if(word.empty())
+        return false;
+    for(char32_t letter:word)
+    {
+        if(!((std::isalpha(letter)||std::isdigit(letter)||(letter==32)||(letter==45)||(letter==39))))
+            if(!(letter==206||letter==210||letter==230||letter==242||letter==245||letter==251||letter==253||letter==276||letter==344))
+                return false;
+    }
+    return true;
+}
+
 //Collection::Collection(const std::string &name_) : name_(name_) {}
 int returnFunction(void *unused, int count, char **data, char **columns)
 {
