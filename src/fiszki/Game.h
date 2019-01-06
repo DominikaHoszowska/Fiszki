@@ -56,8 +56,9 @@ private:
     sqlite3* db_;    //! wskaźnik do bazy danych
     Language language_ =  Language::PL_ENG;
     std::vector<std::shared_ptr<Card>>cardsToAdd_;
-    void loadCollectionsFromDB();
+    void loadCollectionsFromDB();//!zaciąga z bazy kolekcje
     void setActualCollId();//!Sprawdza jakie jest na większe id wśród naszych kolekcji
+    void loadActualCardId();//! zaciąga największe Id z bazy
 public:
     virtual ~Game();
 };

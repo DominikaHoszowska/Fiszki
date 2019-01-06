@@ -37,7 +37,7 @@ Game::Game() {
         src = sqlite3_exec(db_, sql.c_str(), nullptr, nullptr, &err_msg);
 
     }
-
+    this->loadActualCardId();
     this->loadCollectionsFromDB();
     this->setActualCollId();
 }
@@ -197,4 +197,27 @@ bool Game::ifCollectionNameUnique(std::string& name) {
 
 void Game::clearCardsToAdd() {
     cardsToAdd_.clear();
+}
+
+void Game::loadActualCardId() {
+
+    sqlite3_stmt *stmt;
+    const char *sql = "SELECT MAX(ID) FROM Cards";
+    int rc = sqlite3_prepare_v2(db_, sql, -1, &stmt, nullptr);
+    if (rc != SQLITE_OK) {
+//        std::cout<<"error: "<<sqlite3_errmsg(db_);
+
+        //TODO bug
+        return;
+    }
+    rc = sqlite3_step(stmt);
+    actualCardId_ = sqlite3_column_int (stmt, 0);
+
+
+
+    if (rc != SQLITE_DONE) {
+//        std::cout<<"error: "<< sqlite3_errmsg(db_);
+//TODO bug
+    }
+    sqlite3_finalize(stmt);
 }
