@@ -5,6 +5,7 @@
 #include "Collection.h"
 #include <sqlite3/sqlite3.h>
 #include <boost/date_time/posix_time/posix_time.hpp>
+#include <codecvt>
 
 const std::string &Collection::getName_() const {
     return name_;
@@ -83,26 +84,16 @@ void Collection::loadFromDB() {
 bool Collection::checkCorrectnessC(const std::string &word) {
     if(word.empty())
         return false;
-    for(char32_t letter:word)
+    std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+    std::wstring wide = converter.from_bytes(word);
+    std::locale loc( "pl_PL.utf8" );
+
+    for(wchar_t letter:wide)
     {
-        if(!((std::isalpha(letter)||std::isdigit(letter)||(letter==32)||(letter==45)||(letter==39))))
-            if(!(letter==206||letter==210||letter==230||letter==242||letter==245||letter==251||letter==253||letter==276||letter==344))
-                return false;
+        if(!((std::isalpha(letter,loc))||(std::isdigit(letter))||(letter==' ')||(letter=='\'')||(letter=='-')))
+            return false;
     }
     return true;
 }
-
-//Collection::Collection(const std::string &name_) : name_(name_) {}
-int returnFunction(void *unused, int count, char **data, char **columns)
-{
-    std::string s(data[0]);
-    return std::stoi(s);
-}
-int returnFunction2(void *unused, int count, char **data, char **columns)
-{
-    std::string s(data[0]);
-    return std::stoi(s);
-}
-
 
 

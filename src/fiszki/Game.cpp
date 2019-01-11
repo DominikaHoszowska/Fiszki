@@ -20,7 +20,7 @@ unsigned long Game::numberOfCollections() {
 Game::Game() {
     int src;
     char *err_msg = nullptr;
-    setlocale( LC_ALL, "" );
+    setlocale( LC_ALL, "polish" );
     src=sqlite3_open("baza.db", &db_);
     if(src){
         std::cout<<"Nie mogę otworzyć bazy";}

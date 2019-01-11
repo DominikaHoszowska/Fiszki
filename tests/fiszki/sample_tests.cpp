@@ -29,7 +29,7 @@ BOOST_AUTO_TEST_SUITE(sample_test_suite)
 
 
       BOOST_CHECK_EQUAL(Card::checkCorrectnessW("]]"),0);
-
+      BOOST_CHECK_EQUAL(Card::checkCorrectnessW("bąłść"),1);
 
 
 

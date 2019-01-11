@@ -4,6 +4,7 @@
 #include <ctime>
 #include "Card.h"
 #include <memory>
+#include <codecvt>
 void Card::updateEF(unsigned int value) {
     //TODO
 
@@ -78,12 +79,17 @@ const std::shared_ptr <Collection> &Card::getCollection_() const {
  bool Card::checkCorrectnessW(const std::string &word) {
     if(word.empty())
         return false;
-    for(char32_t letter:word)
+     std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
+     std::wstring wide = converter.from_bytes(word);
+     std::locale loc( "pl_PL.utf8" );
+
+     for(wchar_t letter:wide)
     {
-        if(!((std::isalpha(letter)||(letter==32)||(letter==45)||(letter==39))))
-            if(!(letter==206||letter==210||letter==230||letter==242||letter==245||letter==251||letter==253||letter==276||letter==344))
+
+        if(!((std::isalpha(letter,loc))||(letter==' ')||(letter=='\'')||(letter=='-')))
                     return false;
     }
+
     return true;
 }
 
