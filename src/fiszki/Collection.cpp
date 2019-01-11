@@ -4,7 +4,7 @@
 
 #include "Collection.h"
 #include <sqlite3/sqlite3.h>
-
+#include <boost/date_time/posix_time/posix_time.hpp>
 
 const std::string &Collection::getName_() const {
     return name_;
@@ -30,7 +30,7 @@ Game *Collection::getGame_() const {
     return game_;
 }
 
-void Collection::addFC(const std::string & pl, const std::string &eng, unsigned int id) {
+void Collection::addNewFC(const std::string & pl, const std::string &eng, unsigned int id) {
 
     std::shared_ptr<Card>c=std::make_shared<Card>(id,pl,eng);
     this->cards_.push_back(c);
@@ -39,8 +39,16 @@ void Collection::addFC(const std::string & pl, const std::string &eng, unsigned 
 
     std::string sql="INSERT INTO CARDS VALUES(";
     sql+=std::to_string(id);
+    setlocale( LC_ALL, "" );
+
     sql+=",'"+pl+"','"+eng+"'";
-    sql+=",";
+    std::locale::global(std::locale::classic());
+
+    sql+=","+boost::lexical_cast<std::string>(c->getEF_());
+    sql+=",'";
+    sql+=std::to_string(c->getTimeToRepeat_().year())+"-";
+    sql+=std::to_string(c->getTimeToRepeat_().month())+"-";
+    sql+=std::to_string(c->getTimeToRepeat_().day())+"',";
     sql+=std::to_string(this->getId_());
     sql+=");";
 
@@ -64,7 +72,10 @@ void Collection::loadFromDB() {
         int id           = sqlite3_column_int (stmt, 0);
         std::string pl= reinterpret_cast<const char* >(sqlite3_column_text(stmt, 1));
         std::string eng= reinterpret_cast<const char* >(sqlite3_column_text(stmt, 2));
-        cards_.push_back(std::make_shared<Card>(id,pl,eng,std::shared_ptr<Collection>(this)));
+        double ef= sqlite3_column_double(stmt,3);
+        std::string date= reinterpret_cast<const char* >(sqlite3_column_text(stmt, 4));
+        boost::gregorian::date d=boost::gregorian::date_from_iso_string(date);
+        cards_.push_back(std::make_shared<Card>(id,pl,eng,ef,d,std::shared_ptr<Collection>(this)));
 
     }
 }

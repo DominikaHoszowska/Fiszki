@@ -30,6 +30,9 @@ public:
 
     double getEF_() const;//! zwraca wskaźnik nauki fiszki
 
+    Card(unsigned int id_, const std::string &pl_, const std::string &eng_, double EF_,
+         const boost::gregorian::date &timeToRepeat_, const std::shared_ptr<Collection> &collection_);
+
     Card(unsigned int id_, const std::string &pl_, const std::string &eng_);//! konstruktor
 
     void setEF_(double EF_);//! ustwia wskaźnik uczenia fiszki

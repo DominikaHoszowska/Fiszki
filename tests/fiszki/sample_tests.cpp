@@ -22,6 +22,10 @@ BOOST_AUTO_TEST_SUITE(sample_test_suite)
         Game game=Game();
         game.setLanguage(Game::Language::PL_ENG);
         BOOST_CHECK(game.getLanguage_() == Game::Language::PL_ENG);
+        game.addCollection("rodzina");
+        std::shared_ptr<Collection> c=game.getCollection(1);
+        c->addNewFC("mama","mother",game.getActualCardId_()+1);
+
 
 
       BOOST_CHECK_EQUAL(Card::checkCorrectnessW("]]"),0);

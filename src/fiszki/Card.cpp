@@ -93,6 +93,16 @@ Card::Card(unsigned int id_, const std::string &pl_, const std::string &eng_,
 //    setTimeToRepeat(0);
 }
 
+Card::Card(unsigned int id_, const std::string &pl_, const std::string &eng_, double EF_,
+           const boost::gregorian::date &timeToRepeat_, const std::shared_ptr<Collection> &collection_) : id_(id_),
+                                                                                                          pl_(pl_),
+                                                                                                          eng_(eng_),
+                                                                                                          EF_(EF_),
+                                                                                                          timeToRepeat_(
+                                                                                                                  timeToRepeat_),
+                                                                                                          collection_(
+                                                                                                                  collection_) {}
+
 
 
 

@@ -32,6 +32,8 @@ Game::Game() {
         "ID INT PRIMARY KEY NOT NULL ,"\
         "PL TEXT NOT NULL,"\
         "ENG TEXT NOT NULL,"\
+        "EF DOUBLE,"\
+        "TIME_TO_REPEAT DATE,"\
         "COLLECTION_ID INT,"\
         "FOREIGN KEY (COLLECTION_ID) REFERENCES COLLECTIONS(ID));";
         src = sqlite3_exec(db_, sql.c_str(), nullptr, nullptr, &err_msg);
@@ -170,7 +172,7 @@ void Game::addCardsToCollection(std::string collectionName) {
     std::vector<std::shared_ptr<Card>>:: iterator i;
     for(i=cardsToAdd_.begin();i!=cardsToAdd_.end();++i)
     {
-        c->addFC(i->get()->getPl_(),i->get()->getEng_(),actualCardId_+1);
+        c->addNewFC(i->get()->getPl_(),i->get()->getEng_(),actualCardId_+1);
         ++actualCardId_;
     }
     cardsToAdd_.clear();
@@ -220,4 +222,8 @@ void Game::loadActualCardId() {
 //TODO bug
     }
     sqlite3_finalize(stmt);
+}
+
+unsigned int Game::getActualCardId_() const {
+    return actualCardId_;
 }
