@@ -17,7 +17,7 @@ private:
     std::string eng_;//! Angielskie znaczenie
     double EF_; //! Wskaźnik nauki fiszki
     boost::gregorian::date timeToRepeat_; //! Data następnej powtórki
-    std::shared_ptr<Collection> collection_; //! wskaźnik na kolekcję
+    Collection* collection_; //! wskaźnik na kolekcję
 
 public:
     unsigned int getId_() const;//! zwraca unikalne ID fiszki
@@ -31,7 +31,7 @@ public:
     double getEF_() const;//! zwraca wskaźnik nauki fiszki
 
     Card(unsigned int id_, const std::string &pl_, const std::string &eng_, double EF_,
-         const boost::gregorian::date &timeToRepeat_, const std::shared_ptr<Collection> &collection_);
+         const boost::gregorian::date &timeToRepeat_, Collection* collection_);
 
     Card(unsigned int id_, const std::string &pl_, const std::string &eng_);//! konstruktor
 
@@ -51,13 +51,12 @@ public:
     void setTimeToRepeat_(const boost::gregorian::date &timeToRepeat_);//! funkcja ustawiająca datę powtórki fiszki
     void insertCardtoDB(); //! funkcja wstawiająca fiszkę do bazy danych
 
-    const std::shared_ptr <Collection> &getCollection_() const;
+    Collection* getCollection_() const;
 
     Card(unsigned int id_, const std::string &pl_, const std::string &eng_,
-         const std::shared_ptr<Collection> &collection_);
+         Collection* collection_);
 
     //! zwraca wskaźnik na kolekcję do której przypisana jest fiszka
     static bool checkCorrectnessW(const std::string &word);//!sprawdza czy dany string jest poprawnym słowem
-
 };
 #endif //ZPR_CARD_H

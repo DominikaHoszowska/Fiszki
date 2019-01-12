@@ -72,7 +72,7 @@ void Card::insertCardtoDB() {
     //TODO wyjątek
 }
 
-const std::shared_ptr <Collection> &Card::getCollection_() const {
+Collection *Card::getCollection_() const {
     return collection_;
 }
 
@@ -94,13 +94,13 @@ const std::shared_ptr <Collection> &Card::getCollection_() const {
 }
 
 Card::Card(unsigned int id_, const std::string &pl_, const std::string &eng_,
-           const std::shared_ptr<Collection> &collection_) : id_(id_), pl_(pl_), eng_(eng_), collection_(collection_) {
+           Collection* collection_) : id_(id_), pl_(pl_), eng_(eng_), collection_(collection_) {
     EF_=3.5;
     timeToRepeat_=boost::gregorian::date(boost::gregorian::day_clock::local_day());
 }
 
 Card::Card(unsigned int id_, const std::string &pl_, const std::string &eng_, double EF_,
-           const boost::gregorian::date &timeToRepeat_, const std::shared_ptr<Collection> &collection_) : id_(id_),
+           const boost::gregorian::date &timeToRepeat_, Collection* collection_) : id_(id_),
                                                                                                           pl_(pl_),
                                                                                                           eng_(eng_),
                                                                                                           EF_(EF_),
@@ -108,6 +108,7 @@ Card::Card(unsigned int id_, const std::string &pl_, const std::string &eng_, do
                                                                                                                   timeToRepeat_),
                                                                                                           collection_(
                                                                                                                   collection_) {}
+
 
 
 

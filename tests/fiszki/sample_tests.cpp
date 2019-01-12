@@ -19,17 +19,20 @@ BOOST_AUTO_TEST_SUITE(sample_test_suite)
 
     BOOST_AUTO_TEST_CASE(sample_unit_test) {
 
-        Game game=Game();
+        Game game;
         game.setLanguage(Game::Language::PL_ENG);
         BOOST_CHECK(game.getLanguage_() == Game::Language::PL_ENG);
-        game.addCollection("rodzina");
-        std::shared_ptr<Collection> c=game.getCollection(1);
-        c->loadFromDB();
+        std::shared_ptr<Collection> c = game.getCollection(1);
+
+        auto ptr = c.get();
+
+        ptr->loadFromDB();
+
         Session s=Session(c);
 
 
-//      BOOST_CHECK_EQUAL(Card::checkCorrectnessW("]]"),0);
-//      BOOST_CHECK_EQUAL(Card::checkCorrectnessW("bąłść"),1);
+      BOOST_CHECK_EQUAL(Card::checkCorrectnessW("]]"),0);
+      BOOST_CHECK_EQUAL(Card::checkCorrectnessW("bąłść"),1);
 
 
 }

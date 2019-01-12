@@ -62,7 +62,7 @@ void Collection::addNewFC(const std::string & pl, const std::string &eng, unsign
 void Collection::loadFromDB() {
     sqlite3_stmt *stmt;
     std::string sql = "SELECT * FROM Cards WHERE Collection_ID=";
-    sql+=std::to_string(this->getId_());
+    sql += std::to_string(this->getId_());
     int rc = sqlite3_prepare_v2(this->game_->getDb_(), sql.c_str(), -1, &stmt, nullptr);
     if (rc != SQLITE_OK) {
 //        std::cout<<"error: "<<sqlite3_errmsg(db_);
@@ -74,12 +74,13 @@ void Collection::loadFromDB() {
         int id           = sqlite3_column_int (stmt, 0);
         std::string pl= reinterpret_cast<const char* >(sqlite3_column_text(stmt, 1));
         std::string eng= reinterpret_cast<const char* >(sqlite3_column_text(stmt, 2));
-        double ef= sqlite3_column_double(stmt,3);
+        double ef = sqlite3_column_double(stmt,3);
         std::string date= reinterpret_cast<const char* >(sqlite3_column_text(stmt, 4));
         boost::gregorian::date d = boost::gregorian::from_simple_string(date);
-        cards_.push_back(std::make_shared<Card>(id,pl,eng,ef,d,std::shared_ptr<Collection>(this)));
-
+        cards_.push_back(std::make_shared<Card>(id,pl,eng,ef,d,this));
     }
+
+    sqlite3_finalize(stmt);
 }
 
 bool Collection::checkCorrectnessC(const std::string &word) {

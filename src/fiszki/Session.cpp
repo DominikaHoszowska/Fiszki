@@ -21,7 +21,10 @@ void Session::updateCardsToLearn() {
 }
 
 std::shared_ptr<Card> Session::giveNextCard() {
+    if(cards_.empty())
+        return nullptr;
     return cards_[0];
+
 }
 
 const std::shared_ptr<Collection> &Session::getCollection_() const {
