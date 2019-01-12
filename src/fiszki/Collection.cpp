@@ -55,9 +55,7 @@ void Collection::addNewFC(const std::string & pl, const std::string &eng, unsign
     sql+=std::to_string(c->getI_());
     sql+=");";
 
-    std::cout<<sql;
     sqlite3_exec(this->getGame_()->getDb_(), sql.c_str(), nullptr, nullptr, &err_msg);
-    std::cout<<err_msg;
 }
 
 void Collection::loadFromDB() {

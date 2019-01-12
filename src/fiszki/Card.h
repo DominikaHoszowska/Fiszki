@@ -41,20 +41,20 @@ public:
     Card(unsigned int id_, const std::string &pl_, const std::string &eng_);//! konstruktor
 
     void setEF_(double EF_);//! ustwia wskaźnik uczenia fiszki
-
-    void updateEF(unsigned double); //! aktulizuje wskaźnik uczenia
-
+    void updateCard(double);
+    void updateEF( double); //! aktulizuje wskaźnik uczenia
+    void updateI();
+    void updateTimeToRepeat();
+    void updateCardDB();
     const std::string &getPl_() const; //! zwraca polskie znaczenie
 
     const std::string &getEng_() const;//! zwraca angielskie znaczenie
 
     Card(const std::string &pl_, const std::string &eng_);//! konstruktor
-    void setNewTimeToRepeat(unsigned int);//! funkcja aktualizująca datę kolejnej powtórki fiszki
 
     const boost::gregorian::date &getTimeToRepeat_() const; //! funkcja zwracająca datę kolejnej powtórki fiszki
 
     void setTimeToRepeat_(const boost::gregorian::date &timeToRepeat_);//! funkcja ustawiająca datę powtórki fiszki
-    void insertCardtoDB(); //! funkcja wstawiająca fiszkę do bazy danych
 
     Collection* getCollection_() const;
 

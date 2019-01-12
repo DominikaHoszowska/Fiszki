@@ -5,8 +5,12 @@
 #include "Card.h"
 #include <memory>
 #include <codecvt>
-void Card::updateEF(unsigned double) {
-    //TODO
+void Card::updateEF( double q) {
+    EF_+=(0.1-(5-q)*(0.08+(5-q)*0.02));
+    if(EF_<1.1)
+    {
+        EF_=1.1;
+    }
 
 }
 
@@ -25,9 +29,7 @@ Card::Card(const std::string &pl_, const std::string &eng_) :  pl_(pl_), eng_(en
     i_=1;
 }
 
-void Card::setNewTimeToRepeat(unsigned int n) {//n-number of days
-//    this->timeToRepeat_=time(NULL)-(time(NULL)%day)+n*day;
-}
+
 
 unsigned int Card::getId_() const {
     return id_;
@@ -67,12 +69,7 @@ Card::Card(unsigned int id_, const std::string &pl_, const std::string &eng_) : 
     i_=1;
 }
 
-void Card::insertCardtoDB() {
-    char *err_msg = nullptr;
-    std:: string sql="INSERT INTO CARDS VALUES("+ std::to_string(this->getId_()) +",'"+this->getPl_()+"','"+this->getEng_()+"',1);";
-    int src_ = sqlite3_exec(getCollection_()->getGame_()->getDb_(), sql.c_str(), nullptr, nullptr, &err_msg);
-    //TODO wyjątek
-}
+
 
 Collection *Card::getCollection_() const {
     return collection_;
@@ -114,6 +111,45 @@ Card::Card(unsigned int id_, const std::string &pl_, const std::string &eng_, do
 
 unsigned int Card::getI_() const {
     return i_;
+}
+
+void Card::updateCard(double q) {
+    updateEF(q);
+    updateI();
+    updateTimeToRepeat();
+    updateCardDB();
+}
+
+void Card::updateI() {
+    i_*=EF_;
+    if(i_<1)
+        i_=1;
+    if(i_>100)
+    {
+        i_=100;
+    }
+}
+
+void Card::updateTimeToRepeat() {
+    timeToRepeat_=boost::gregorian::day_clock::local_day()+boost::gregorian::days(i_);
+}
+
+void Card::updateCardDB() {
+
+    char *err_msg = nullptr;
+
+    std::string sql="UPDATE CARDS SET  EF=";
+    sql+=std::to_string(EF_);
+    sql+=", TIME_TO_REPEAT='";
+    sql+=std::to_string(getTimeToRepeat_().year())+"-";
+    sql+=std::to_string(getTimeToRepeat_().month())+"-";
+    sql+=std::to_string(getTimeToRepeat_().day())+"',I=";
+    sql+=std::to_string(i_);
+    sql+="WHERE ID=";
+    sql+=std::to_string(id_);
+    sql+=";";
+    sqlite3_exec(this->getCollection_()->getGame_()->getDb_(), sql.c_str(), nullptr, nullptr, &err_msg);
+
 }
 
 

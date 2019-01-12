@@ -10,7 +10,10 @@ class CardCompare
 public:
     bool operator() (std::shared_ptr<CardSession>& c1, std::shared_ptr<CardSession>& c2 )
     {
-        return (c1->getCard_()->getEF_()>c2->getCard_()->getEF_());
+
+        if(c1->getNumberOfScores()==c2->getNumberOfScores())
+            return (c1->getCard_()->getEF_()>c2->getCard_()->getEF_());
+        return (c1->getNumberOfScores()<c2->getNumberOfScores());
 
     }
 };
@@ -42,21 +45,31 @@ Session::Session(const std::shared_ptr<Collection> &collection_) : collection_(c
     bad_=0;
 }
 
-void Session::takeAnswer(std::shared_ptr<CardSession>, Session::Answer answer) {
+void Session::takeAnswer(std::shared_ptr<CardSession> cardSession, Session::Answer answer) {
     switch (answer)
     {
         case Answer ::GOOD:
             ++good_;
-
+            cardSession->addNewScore(5);
+            cardSession->getCard_()->updateCard(cardSession->getAverage());
+            deleteCard(cardSession);
             break;
 
         case Answer ::MEDIUM:
             ++medium_;
+            cardSession->addNewScore(3);
+
             break;
         default:
             ++bad_;
+            cardSession->addNewScore(1);
+
             break;
 
+    }
+    if(cardSession->getNumberOfScores()>=3) {
+        cardSession->getCard_()->updateCard(cardSession->getAverage());
+        deleteCard(cardSession);
     }
 
 }
@@ -77,3 +90,11 @@ int Session::getAllAnswers() const {
     return (good_+medium_+bad_);
 }
 
+void Session:: deleteCard(std::shared_ptr<CardSession> card)  {
+for(auto i=cards_.begin();i!=cards_.end();++i)
+{
+    if(*i==card)
+        i=cards_.erase(i);
+}
+
+}

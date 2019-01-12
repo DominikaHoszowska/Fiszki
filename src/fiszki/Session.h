@@ -42,6 +42,8 @@ public:
     int getMedium_() const;
     int getBad_() const;
     int getAllAnswers() const;
+
+    void deleteCard(std::shared_ptr<CardSession>);
 };
 
 
