@@ -42,7 +42,7 @@ public:
 
     void setEF_(double EF_);//! ustwia wskaźnik uczenia fiszki
 
-    void updateEF(unsigned int); //! aktulizuje wskaźnik uczenia
+    void updateEF(unsigned double); //! aktulizuje wskaźnik uczenia
 
     const std::string &getPl_() const; //! zwraca polskie znaczenie
 

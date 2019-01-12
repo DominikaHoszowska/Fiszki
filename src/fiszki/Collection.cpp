@@ -106,7 +106,7 @@ void Collection::updateCardsToLearn(Session *session) {
     {
         if(i->getTimeToRepeat_()<=boost::gregorian::date(boost::gregorian::day_clock::local_day()))
         {
-            session->addCardtoLearn(std::make_shared<Card>(*i));
+            session->addCardToLearn(std::make_shared<Card>(*i));
         }
     }
 }

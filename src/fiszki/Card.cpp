@@ -5,7 +5,7 @@
 #include "Card.h"
 #include <memory>
 #include <codecvt>
-void Card::updateEF(unsigned int value) {
+void Card::updateEF(unsigned double) {
     //TODO
 
 }

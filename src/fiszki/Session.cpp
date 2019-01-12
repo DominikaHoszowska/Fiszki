@@ -8,9 +8,9 @@
 class CardCompare
 {
 public:
-    bool operator() (std::shared_ptr<Card>& c1, std::shared_ptr<Card>& c2 )
+    bool operator() (std::shared_ptr<CardSession>& c1, std::shared_ptr<CardSession>& c2 )
     {
-        return (c1->getEF_()>c2->getEF_());
+        return (c1->getCard_()->getEF_()>c2->getCard_()->getEF_());
 
     }
 };
@@ -19,7 +19,7 @@ void Session::updateCardsToLearn() {
     collection_->updateCardsToLearn(this);
 }
 
-std::shared_ptr<Card> Session::giveNextCard() {
+std::shared_ptr<CardSession> Session::giveNextCard() {
     if(cards_.empty())
         return nullptr;
 
@@ -31,8 +31,8 @@ const std::shared_ptr<Collection> &Session::getCollection_() const {
 }
 
 
-void Session::addCardtoLearn(std::shared_ptr<Card> card) {
-    cards_.push_back(card);
+void Session::addCardToLearn(std::shared_ptr<Card> card) {
+    cards_.push_back(std::make_shared<CardSession>(card));
 }
 
 Session::Session(const std::shared_ptr<Collection> &collection_) : collection_(collection_) {
@@ -42,11 +42,12 @@ Session::Session(const std::shared_ptr<Collection> &collection_) : collection_(c
     bad_=0;
 }
 
-void Session::takeAnswer(std::shared_ptr<Card>, Session::Answer answer) {
+void Session::takeAnswer(std::shared_ptr<CardSession>, Session::Answer answer) {
     switch (answer)
     {
         case Answer ::GOOD:
             ++good_;
+
             break;
 
         case Answer ::MEDIUM:
