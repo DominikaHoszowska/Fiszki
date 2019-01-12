@@ -9,8 +9,11 @@
 #include <memory>
 #include "Game.h"
 #include "Card.h"
+#include "Session.h"
+
 class Game;
 class Card;
+class Session;
 /*!
  * \brief Klasa reprezentująca katalog/kolekcję, trzymająca fiszki należące do danej kolekcji
  */
@@ -24,6 +27,7 @@ public:
     Game *getGame_() const;
 
 public:
+
     const std::string &getName_() const; //! zwraca nazwę kolekcji
     unsigned int getId_() const; //! zwraca ID kolekcji
     void setId_(unsigned int id_);//! ustawia ID kolekcji
@@ -31,8 +35,11 @@ public:
     void addNewFC(const std::string&, const std::string&, unsigned int); //! dodawanie fiszki do kolekcji
     void loadFromDB();
     static bool checkCorrectnessC(const std::string &word);//!sprawdza czy dany string jest poprawnym słowem
+    void updateCardsToLearn(Session*);
 
 };
+
+
 
 
 #endif //ZPR_COLLECTION_H

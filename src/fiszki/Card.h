@@ -58,6 +58,6 @@ public:
 
     //! zwraca wskaźnik na kolekcję do której przypisana jest fiszka
     static bool checkCorrectnessW(const std::string &word);//!sprawdza czy dany string jest poprawnym słowem
-};
 
+};
 #endif //ZPR_CARD_H

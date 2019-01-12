@@ -4,13 +4,24 @@
 
 #include "Session.h"
 
+
+class CardCompare
+{
+public:
+    bool operator() (std::shared_ptr<Card>& c1, std::shared_ptr<Card>& c2 )
+    {
+        return (c1->getEF_()>c2->getEF_());
+
+    }
+};
+
 void Session::updateCardsToLearn() {
-    //TODO
+    collection_->updateCardsToLearn(this);
+    std::sort(cards_.begin(),cards_.end(),CardCompare());
 }
 
 std::shared_ptr<Card> Session::giveNextCard() {
-    //TODO
-    return nullptr;
+    return cards_[0];
 }
 
 const std::shared_ptr<Collection> &Session::getCollection_() const {
@@ -20,9 +31,9 @@ const std::shared_ptr<Collection> &Session::getCollection_() const {
 
 void Session::addCardtoLearn(std::shared_ptr<Card> card) {
     cards_.push_back(card);
-    //TODO sortowanie po EF
 }
 
 Session::Session(const std::shared_ptr<Collection> &collection_) : collection_(collection_) {
     updateCardsToLearn();
 }
+

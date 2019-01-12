@@ -24,13 +24,12 @@ BOOST_AUTO_TEST_SUITE(sample_test_suite)
         BOOST_CHECK(game.getLanguage_() == Game::Language::PL_ENG);
         game.addCollection("rodzina");
         std::shared_ptr<Collection> c=game.getCollection(1);
-        c->addNewFC("mama","mother",game.getActualCardId_()+1);
+        c->loadFromDB();
+        Session s=Session(c);
 
 
-
-      BOOST_CHECK_EQUAL(Card::checkCorrectnessW("]]"),0);
-      BOOST_CHECK_EQUAL(Card::checkCorrectnessW("bąłść"),1);
-
+//      BOOST_CHECK_EQUAL(Card::checkCorrectnessW("]]"),0);
+//      BOOST_CHECK_EQUAL(Card::checkCorrectnessW("bąłść"),1);
 
 
 }

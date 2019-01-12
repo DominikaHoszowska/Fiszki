@@ -7,6 +7,7 @@
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <codecvt>
 
+
 const std::string &Collection::getName_() const {
     return name_;
 }
@@ -94,6 +95,16 @@ bool Collection::checkCorrectnessC(const std::string &word) {
             return false;
     }
     return true;
+}
+
+void Collection::updateCardsToLearn(Session *session) {
+    for(auto i:cards_)
+    {
+        if(i->getTimeToRepeat_()<=boost::gregorian::date(boost::gregorian::day_clock::local_day()))
+        {
+            session->addCardtoLearn(std::make_shared<Card>(*i));
+        }
+    }
 }
 
 

@@ -21,7 +21,7 @@ public:
 
     const std::shared_ptr<Collection> &getCollection_() const;
 
-    Session(const std::shared_ptr<Collection> &collection_);
+    Session(const std::shared_ptr<Collection> &collection_);//! zaciąga karty do nauki
     //OTHERS:
 
     void updateCardsToLearn();//!Prosi kolekcję o dodatnie kart do nauki
