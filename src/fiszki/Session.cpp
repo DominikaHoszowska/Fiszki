@@ -25,7 +25,7 @@ std::shared_ptr<Card> Session::giveNextCard() {
 
 //    std::sort(cards_.begin(),cards_.end(),CardCompare());
 //    return cards_[0];
-    return  *std::min_element(cards_.begin(),cards_.end(),CardCompare());
+    return  *std::max_element(cards_.begin(),cards_.end(),CardCompare());
 }
 
 const std::shared_ptr<Collection> &Session::getCollection_() const {
