@@ -99,6 +99,7 @@ bool Collection::checkCorrectnessC(const std::string &word) {
 }
 
 void Collection::updateCardsToLearn(Session *session) {
+    loadFromDB();
     for(auto i:cards_)
     {
         if(i->getTimeToRepeat_()<=boost::gregorian::date(boost::gregorian::day_clock::local_day()))

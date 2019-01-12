@@ -11,6 +11,11 @@
 #include <memory>
 class Collection;
 class Card {
+    enum class Answer : uint8_t {
+        GOOD,
+        MEDIUM,
+        BAD
+    };
 private:
     unsigned int id_; //! Unikalne ID fiszki
     std::string pl_;//! Polskie znaczenie
@@ -58,5 +63,6 @@ public:
 
     //! zwraca wskaźnik na kolekcję do której przypisana jest fiszka
     static bool checkCorrectnessW(const std::string &word);//!sprawdza czy dany string jest poprawnym słowem
+
 };
 #endif //ZPR_CARD_H
