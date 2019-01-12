@@ -17,14 +17,15 @@ public:
 
 void Session::updateCardsToLearn() {
     collection_->updateCardsToLearn(this);
-    std::sort(cards_.begin(),cards_.end(),CardCompare());
 }
 
 std::shared_ptr<Card> Session::giveNextCard() {
     if(cards_.empty())
         return nullptr;
-    return cards_[0];
 
+//    std::sort(cards_.begin(),cards_.end(),CardCompare());
+//    return cards_[0];
+    return  *std::min_element(cards_.begin(),cards_.end(),CardCompare());
 }
 
 const std::shared_ptr<Collection> &Session::getCollection_() const {
@@ -38,5 +39,42 @@ void Session::addCardtoLearn(std::shared_ptr<Card> card) {
 
 Session::Session(const std::shared_ptr<Collection> &collection_) : collection_(collection_) {
     updateCardsToLearn();
+    good_=0;
+    medium_=0;
+    bad_=0;
+}
+
+void Session::takeAnswer(std::shared_ptr<Card>, Session::Answer answer) {
+    switch (answer)
+    {
+        case Answer ::GOOD:
+            ++good_;
+            break;
+
+        case Answer ::MEDIUM:
+            ++medium_;
+            break;
+        default:
+            ++bad_;
+            break;
+
+    }
+
+}
+
+int Session::getGood_() const {
+    return good_;
+}
+
+int Session::getMedium_() const {
+    return medium_;
+}
+
+int Session::getBad_() const {
+    return bad_;
+}
+
+int Session::getAllAnswers() const {
+    return (good_+medium_+bad_);
 }
 

@@ -7,6 +7,8 @@
 
 
 #include "Game.h"
+#include "Card.h"
+
 /*!
  * \brief Klasa będąca sesją nauki
  */
@@ -14,9 +16,16 @@ class Session {
 private:
     std::vector<std::shared_ptr<Card>> cards_;//! karty do nauki w danej sesji
     std::shared_ptr<Collection> collection_;//! wskaźnik do aktualnie nauczanej kolekcji
+    int good_;
+    int medium_;
+    int bad_;
 
 public:
-
+    enum class Answer {
+        GOOD,
+        MEDIUM,
+        BAD
+    };
     //GETTERS:
 
     const std::shared_ptr<Collection> &getCollection_() const;
@@ -27,8 +36,11 @@ public:
     void updateCardsToLearn();//!Prosi kolekcję o dodatnie kart do nauki
     std::shared_ptr<Card> giveNextCard();//!zwraca kolejną kartę do nauki
     void addCardtoLearn(std::shared_ptr<Card>); //!dodaje kartę do nauki do sesji,
-
-
+    void takeAnswer(std::shared_ptr<Card>,Answer answer);
+    int getGood_() const;
+    int getMedium_() const;
+    int getBad_() const;
+    int getAllAnswers() const;
 };
 
 
