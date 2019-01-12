@@ -75,7 +75,7 @@ void Collection::loadFromDB() {
         std::string eng= reinterpret_cast<const char* >(sqlite3_column_text(stmt, 2));
         double ef= sqlite3_column_double(stmt,3);
         std::string date= reinterpret_cast<const char* >(sqlite3_column_text(stmt, 4));
-        boost::gregorian::date d=boost::gregorian::date_from_iso_string(date);
+        boost::gregorian::date d = boost::gregorian::from_simple_string(date);
         cards_.push_back(std::make_shared<Card>(id,pl,eng,ef,d,std::shared_ptr<Collection>(this)));
 
     }

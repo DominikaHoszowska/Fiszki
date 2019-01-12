@@ -21,7 +21,7 @@ const std::string &Card::getEng_() const {
 
 Card::Card(const std::string &pl_, const std::string &eng_) :  pl_(pl_), eng_(eng_){
     EF_=3.5;
-//    setTimeToRepeat(0);
+    timeToRepeat_=boost::gregorian::date(boost::gregorian::day_clock::local_day());
 }
 
 void Card::setNewTimeToRepeat(unsigned int n) {//n-number of days
@@ -96,7 +96,7 @@ const std::shared_ptr <Collection> &Card::getCollection_() const {
 Card::Card(unsigned int id_, const std::string &pl_, const std::string &eng_,
            const std::shared_ptr<Collection> &collection_) : id_(id_), pl_(pl_), eng_(eng_), collection_(collection_) {
     EF_=3.5;
-//    setTimeToRepeat(0);
+    timeToRepeat_=boost::gregorian::date(boost::gregorian::day_clock::local_day());
 }
 
 Card::Card(unsigned int id_, const std::string &pl_, const std::string &eng_, double EF_,

@@ -23,4 +23,6 @@ void Session::addCardtoLearn(std::shared_ptr<Card> card) {
     //TODO sortowanie po EF
 }
 
-Session::Session(const std::shared_ptr<Collection> &collection_) : collection_(collection_) {}
+Session::Session(const std::shared_ptr<Collection> &collection_) : collection_(collection_) {
+    updateCardsToLearn();
+}
