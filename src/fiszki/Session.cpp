@@ -23,8 +23,6 @@ std::shared_ptr<Card> Session::giveNextCard() {
     if(cards_.empty())
         return nullptr;
 
-//    std::sort(cards_.begin(),cards_.end(),CardCompare());
-//    return cards_[0];
     return  *std::max_element(cards_.begin(),cards_.end(),CardCompare());
 }
 

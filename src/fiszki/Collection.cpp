@@ -51,7 +51,8 @@ void Collection::addNewFC(const std::string & pl, const std::string &eng, unsign
     sql+=std::to_string(c->getTimeToRepeat_().year())+"-";
     sql+=std::to_string(c->getTimeToRepeat_().month())+"-";
     sql+=std::to_string(c->getTimeToRepeat_().day())+"',";
-    sql+=std::to_string(this->getId_());
+    sql+=std::to_string(this->getId_())+" ,";
+    sql+=std::to_string(c->getI_());
     sql+=");";
 
     std::cout<<sql;
@@ -77,7 +78,8 @@ void Collection::loadFromDB() {
         double ef = sqlite3_column_double(stmt,3);
         std::string date= reinterpret_cast<const char* >(sqlite3_column_text(stmt, 4));
         boost::gregorian::date d = boost::gregorian::from_simple_string(date);
-        cards_.push_back(std::make_shared<Card>(id,pl,eng,ef,d,this));
+        int i           = sqlite3_column_int (stmt, 5);
+        cards_.push_back(std::make_shared<Card>(id,pl,eng,ef,d,this,i));
     }
 
     sqlite3_finalize(stmt);

@@ -22,6 +22,7 @@ const std::string &Card::getEng_() const {
 Card::Card(const std::string &pl_, const std::string &eng_) :  pl_(pl_), eng_(eng_){
     EF_=3.5;
     timeToRepeat_=boost::gregorian::date(boost::gregorian::day_clock::local_day());
+    i_=1;
 }
 
 void Card::setNewTimeToRepeat(unsigned int n) {//n-number of days
@@ -63,6 +64,7 @@ void Card::setTimeToRepeat_(const boost::gregorian::date &timeToRepeat_) {
 Card::Card(unsigned int id_, const std::string &pl_, const std::string &eng_) : id_(id_), pl_(pl_), eng_(eng_) {
     EF_=3.5;
     timeToRepeat_=boost::gregorian::day_clock::local_day();
+    i_=1;
 }
 
 void Card::insertCardtoDB() {
@@ -100,14 +102,19 @@ Card::Card(unsigned int id_, const std::string &pl_, const std::string &eng_,
 }
 
 Card::Card(unsigned int id_, const std::string &pl_, const std::string &eng_, double EF_,
-           const boost::gregorian::date &timeToRepeat_, Collection* collection_) : id_(id_),
+           const boost::gregorian::date &timeToRepeat_, Collection* collection_, unsigned int i_) : id_(id_),
                                                                                                           pl_(pl_),
                                                                                                           eng_(eng_),
                                                                                                           EF_(EF_),
                                                                                                           timeToRepeat_(
                                                                                                                   timeToRepeat_),
                                                                                                           collection_(
-                                                                                                                  collection_) {}
+                                                                                                                  collection_),
+                                                                                                                  i_(i_){}
+
+unsigned int Card::getI_() const {
+    return i_;
+}
 
 
 

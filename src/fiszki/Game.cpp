@@ -34,6 +34,7 @@ Game::Game() {
         "EF DOUBLE,"\
         "TIME_TO_REPEAT DATE,"\
         "COLLECTION_ID INT,"\
+        "I INT,"\
         "FOREIGN KEY (COLLECTION_ID) REFERENCES COLLECTIONS(ID));";
         src = sqlite3_exec(db_, sql.c_str(), nullptr, nullptr, &err_msg);
 

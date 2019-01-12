@@ -18,6 +18,7 @@ private:
     double EF_; //! Wskaźnik nauki fiszki
     boost::gregorian::date timeToRepeat_; //! Data następnej powtórki
     Collection* collection_; //! wskaźnik na kolekcję
+    unsigned int i_;//! przerwy między kolejnymi powtórkami
 
 public:
 
@@ -33,7 +34,9 @@ public:
     double getEF_() const;//! zwraca wskaźnik nauki fiszki
 
     Card(unsigned int id_, const std::string &pl_, const std::string &eng_, double EF_,
-         const boost::gregorian::date &timeToRepeat_, Collection* collection_);
+         const boost::gregorian::date &timeToRepeat_, Collection* collection_, unsigned int i_);
+
+    unsigned int getI_() const;
 
     Card(unsigned int id_, const std::string &pl_, const std::string &eng_);//! konstruktor
 
