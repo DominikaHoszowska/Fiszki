@@ -66,9 +66,8 @@ void Collection::loadFromDB() {
     sql += std::to_string(this->getId_());
     int rc = sqlite3_prepare_v2(this->game_->getDb_(), sql.c_str(), -1, &stmt, nullptr);
     if (rc != SQLITE_OK) {
-//        std::cout<<"error: "<<sqlite3_errmsg(db_);
+        std::cout<<"error: "<<sqlite3_errmsg(getGame_()->getDb_());
 
-        //TODO bug
         return;
     }
     while ((rc = sqlite3_step(stmt)) == SQLITE_ROW) {

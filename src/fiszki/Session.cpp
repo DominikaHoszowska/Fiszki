@@ -48,7 +48,7 @@ int Session::getAllAnswers() const {
     return (good_+medium_+bad_);
 }
 
-unsigned long Session::getNumberOfCards() {
+bool Session::cardsAreNotNull() {
     return cards_.size();
 }
 

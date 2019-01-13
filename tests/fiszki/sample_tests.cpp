@@ -43,7 +43,6 @@ BOOST_AUTO_TEST_SUITE(sample_test_suite)
         std::string collectionName("rodzina");
         game.addCard("mama", "mother");
         BOOST_CHECK_EQUAL(game.ifCardsToAddIsEmpty(), 0);
-        game.addCardsToCollection(collectionName);
     }
 
     BOOST_AUTO_TEST_CASE(clearCardsToAdd) {
@@ -60,6 +59,8 @@ BOOST_AUTO_TEST_SUITE(sample_test_suite)
         Game game(base);
         game.setLanguage(Game::Language::PL_ENG);
         std::string collectionName("rodzina");
+        game.addCard("mama", "mother");
+        game.addCardsToCollection(collectionName);
         std::shared_ptr<Collection> c = game.getCollection(collectionName);
         Session s = Session(c);
         std::shared_ptr<CardSession> cs = s.giveNextCard();
@@ -76,6 +77,8 @@ BOOST_AUTO_TEST_SUITE(sample_test_suite)
         std::shared_ptr<CardSession> cs = s.giveNextCard();
         s.takeAnswer(cs, Session::Answer::GOOD);
         BOOST_CHECK_EQUAL(s.giveNextCard(), nullptr);
+        BOOST_CHECK_EQUAL(s.getAllAnswers(), 1);
+
     }
 
     BOOST_AUTO_TEST_CASE(gettingCardsToLearn3) {
@@ -97,6 +100,20 @@ BOOST_AUTO_TEST_SUITE(sample_test_suite)
         BOOST_CHECK_EQUAL(cs->getCard_()->getPl_(),"tata");
         s.takeAnswer(cs,Session::Answer::BAD);
         BOOST_CHECK_EQUAL(s.giveNextCard(), nullptr);
+        BOOST_CHECK_EQUAL(s.getGood_(), 0);
+        BOOST_CHECK_EQUAL(s.getMedium_(), 1);
+        BOOST_CHECK_EQUAL(s.getBad_(), 2);
+    }
+    BOOST_AUTO_TEST_CASE(addingCardsToSession) {
+        std::string base("baza.db");
+        Game game(base);
+        game.setLanguage(Game::Language::PL_ENG);
+        std::string collectionName("rodzina");
+        std::shared_ptr<Collection> c = game.getCollection(collectionName);
+        game.addCard("kot", "cat");
+        game.addCardsToCollection(collectionName);
+        Session s = Session(c);
+        BOOST_CHECK_EQUAL(s.cardsAreNotNull(),1);
 
     }
 

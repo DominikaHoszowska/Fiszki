@@ -38,7 +38,7 @@ public:
     int getMedium_() const;//!używany do wyświetlania statystyk
     int getBad_() const;//!używany do wyświetlania statystyk
     int getAllAnswers() const;//!używany do wyświetlania statystyk
-    unsigned long getNumberOfCards();//!używany aby sprawdzić czy są jakieś karty do nauki
+    bool cardsAreNotNull();//!używany aby sprawdzić czy są jakieś karty do nauki
 
     //OTHERS:
 

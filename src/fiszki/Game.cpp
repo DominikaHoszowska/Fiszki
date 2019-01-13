@@ -179,9 +179,8 @@ void Game::loadCollectionsFromDB() {
     const char *sql = "SELECT * FROM Collections";
     int rc = sqlite3_prepare_v2(db_, sql, -1, &stmt, nullptr);
     if (rc != SQLITE_OK) {
-//        std::cout<<"error: "<<sqlite3_errmsg(db_);
+        std::cout<<"error: "<<sqlite3_errmsg(db_);
 
-        //TODO bug
         return;
     }
     while ((rc = sqlite3_step(stmt)) == SQLITE_ROW) {
@@ -192,12 +191,10 @@ void Game::loadCollectionsFromDB() {
 
     }
     if (rc != SQLITE_DONE) {
-//        std::cout<<"error: "<< sqlite3_errmsg(db_);
-//TODO bug
+        std::cout<<"error: "<< sqlite3_errmsg(db_);
     }
     sqlite3_finalize(stmt);
 
-    //TODO
 
 }
 
@@ -208,9 +205,7 @@ void Game::loadActualCardId() {
     const char *sql = "SELECT MAX(ID) FROM Cards";
     int rc = sqlite3_prepare_v2(db_, sql, -1, &stmt, nullptr);
     if (rc != SQLITE_OK) {
-//        std::cout<<"error: "<<sqlite3_errmsg(db_);
-
-        //TODO bug
+        std::cout<<"error: "<<sqlite3_errmsg(db_);
         return;
     }
     rc = sqlite3_step(stmt);
@@ -218,8 +213,7 @@ void Game::loadActualCardId() {
 
 
     if (rc != SQLITE_DONE) {
-//        std::cout<<"error: "<< sqlite3_errmsg(db_);
-//TODO bug
+        std::cout<<"error: "<< sqlite3_errmsg(db_);
     }
     sqlite3_finalize(stmt);
 }
