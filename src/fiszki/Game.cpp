@@ -10,12 +10,7 @@
 
 
 using namespace sqlite_orm;
-
-
-unsigned long Game::numberOfCollections() {
-    return (this->collections_).size();
-}
-
+//Konstruktory:
 Game::Game() {
     int src;
     char *err_msg = nullptr;
@@ -44,23 +39,42 @@ Game::Game() {
     this->setActualCollId();
 }
 
+//Destruktor:
+
+Game::~Game() {
+    sqlite3_close(db_);
+}
+//Gettery:
+
+Game::Language Game::getLanguage_() const {
+    return language_;
+}
 
 sqlite3 *Game::getDb_() const {
     return db_;
 }
 
 
-Game::Language Game::getLanguage_() const {
-    return language_;
+unsigned long Game::numberOfCollections() {
+    return (this->collections_).size();
 }
 
-void Game::setLanguage(Game::Language language) {
-    language_ = language;
+
+std::shared_ptr<Collection> Game::getCollection(unsigned int id) {
+
+    for (auto& i : collections_)
+        if (i->getId_() == id) return i;
+
+    return nullptr;
+
 }
 
-void Game::addCard(std::string pl, std::string eng) {
-    std::shared_ptr<Card> card(new Card(pl, eng));
-    this->cardsToAdd_.push_back(card);
+std::shared_ptr<Collection> Game::getCollection(std::string &name) {
+    for (auto i :collections_) {
+        if (!i->getName_().compare(name))
+            return i;
+    }
+    return nullptr;
 }
 
 std::vector<std::string> Game::getCollections() {
@@ -72,14 +86,88 @@ std::vector<std::string> Game::getCollections() {
     return collections;
 }
 
-std::shared_ptr<Collection> Game::getCollection(unsigned int id) {
+unsigned int Game::getActualCardId_() const {
+    return actualCardId_;
+}
 
-    for (auto& i : collections_)
-        if (i->getId_() == id) return i;
+//Settery:
 
-    return nullptr;
+void Game::setLanguage(Game::Language language) {
+    language_ = language;
+}
+
+void Game::setDb_(sqlite3 *db_) {
+    Game::db_ = db_;
+}
+
+void Game::setActualCollId() {
+    std::vector<std::shared_ptr<Collection>>::iterator i;
+    actualCollId_ = 0;
+
+    for (i = collections_.begin(); i != collections_.end(); ++i) {
+        if (i->get()->getId_() > actualCollId_) {
+            actualCollId_ = i->get()->getId_();
+        }
+    }
 
 }
+
+//Inne:
+
+void Game::addCollection(unsigned int id, std::string name) {
+
+    std::shared_ptr<Collection> c = std::make_shared<Collection>(name, id, this);
+
+    this->collections_.push_back(c);
+
+
+}
+void Game::addCollection(std::string name) {
+
+    int src;
+    char *err_msg = nullptr;
+    std::string sql = "INSERT INTO COLLECTIONS VALUES(" + std::to_string(actualCollId_ + 1) + ",'" + name + "');";
+    src = sqlite3_exec(db_, sql.c_str(), nullptr, nullptr, &err_msg);
+    this->addCollection(actualCollId_ + 1, name);
+    actualCollId_ += 1;
+
+}
+
+
+void Game::addCard(std::string pl, std::string eng) {
+    std::shared_ptr<Card> card(new Card(pl, eng));
+    this->cardsToAdd_.push_back(card);
+}
+
+
+void Game::addCardsToCollection(std::string collectionName) {
+    std::shared_ptr<Collection> c = getCollection(collectionName);
+    c->loadFromDB();
+    std::vector<std::shared_ptr<Card>>::iterator i;
+    for (i = cardsToAdd_.begin(); i != cardsToAdd_.end(); ++i) {
+        c->addNewFC(i->get()->getPl_(), i->get()->getEng_(), actualCardId_ + 1);
+        ++actualCardId_;
+    }
+    cardsToAdd_.clear();
+}
+
+bool Game::ifCardsToAddIsEmpty() {
+    return cardsToAdd_.empty();
+}
+
+bool Game::ifCollectionNameUnique(std::string &name) {
+    for (auto i:collections_) {
+        if (!name.compare(i->getName_()))
+            return 0;
+    }
+    return 1;
+}
+
+void Game::clearCardsToAdd() {
+    cardsToAdd_.clear();
+}
+
+
 
 
 void Game::loadCollectionsFromDB() {
@@ -110,82 +198,6 @@ void Game::loadCollectionsFromDB() {
 
 }
 
-void Game::addCollection(unsigned int id, std::string name) {
-
-    std::shared_ptr<Collection> c = std::make_shared<Collection>(name, id, this);
-
-    this->collections_.push_back(c);
-
-
-}
-
-void Game::addCollection(std::string name) {
-
-    int src;
-    char *err_msg = nullptr;
-    std::string sql = "INSERT INTO COLLECTIONS VALUES(" + std::to_string(actualCollId_ + 1) + ",'" + name + "');";
-    src = sqlite3_exec(db_, sql.c_str(), nullptr, nullptr, &err_msg);
-    this->addCollection(actualCollId_ + 1, name);
-    actualCollId_ += 1;
-
-}
-
-void Game::setActualCollId() {
-    std::vector<std::shared_ptr<Collection>>::iterator i;
-    actualCollId_ = 0;
-
-    for (i = collections_.begin(); i != collections_.end(); ++i) {
-        if (i->get()->getId_() > actualCollId_) {
-            actualCollId_ = i->get()->getId_();
-        }
-    }
-
-}
-
-void Game::setDb_(sqlite3 *db_) {
-    Game::db_ = db_;
-}
-
-std::shared_ptr<Collection> Game::getCollection(std::string &name) {
-    for (auto i :collections_) {
-        if (!i->getName_().compare(name))
-            return i;
-    }
-    return nullptr;
-}
-
-void Game::addCardsToCollection(std::string collectionName) {
-    std::shared_ptr<Collection> c = getCollection(collectionName);
-    c->loadFromDB();
-    std::vector<std::shared_ptr<Card>>::iterator i;
-    for (i = cardsToAdd_.begin(); i != cardsToAdd_.end(); ++i) {
-        c->addNewFC(i->get()->getPl_(), i->get()->getEng_(), actualCardId_ + 1);
-        ++actualCardId_;
-    }
-    cardsToAdd_.clear();
-}
-
-Game::~Game() {
-    sqlite3_close(db_);
-
-
-}
-
-bool Game::ifCardsToAddIsEmpty() {
-    return cardsToAdd_.empty();
-}
-
-bool Game::ifCollectionNameUnique(std::string &name) {
-    for (auto i:collections_) {
-        if (!name.compare(i->getName_()))
-            return 0;
-    }
-    return 1;
-}
-
-void Game::clearCardsToAdd() {
-    cardsToAdd_.clear();
-}
 
 void Game::loadActualCardId() {
 
@@ -209,6 +221,3 @@ void Game::loadActualCardId() {
     sqlite3_finalize(stmt);
 }
 
-unsigned int Game::getActualCardId_() const {
-    return actualCardId_;
-}

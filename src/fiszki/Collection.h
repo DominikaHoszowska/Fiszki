@@ -26,11 +26,11 @@ private:
 
 public:
     //Konstruktory:
-    explicit Collection(const std::string &name_, unsigned int id_, Game* game_);
+    explicit Collection(const std::string &name_, unsigned int id_, Game* game_);//!konstruktor używany przy dodawaniu kolekcji do gry
 
     //Gettery:
 
-    Game *getGame_() const;
+    Game *getGame_() const;//! zwraca wskaźnik na grę
     const std::string &getName_() const; //! zwraca nazwę kolekcji
     unsigned int getId_() const; //! zwraca ID kolekcji
    //Inne:
