@@ -137,9 +137,10 @@ void Card::updateTimeToRepeat() {
 void Card::updateCardDB() {
 
     char *err_msg = nullptr;
+    std::setlocale(LC_NUMERIC, "en_US.utf8");
 
     std::string sql="UPDATE CARDS SET  EF=";
-    sql+=std::to_string(EF_);
+    sql+=boost::lexical_cast<std::string>(EF_);
     sql+=", TIME_TO_REPEAT='";
     sql+=std::to_string(getTimeToRepeat_().year())+"-";
     sql+=std::to_string(getTimeToRepeat_().month())+"-";

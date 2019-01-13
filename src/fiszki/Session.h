@@ -44,6 +44,8 @@ public:
     int getAllAnswers() const;
 
     void deleteCard(std::shared_ptr<CardSession>);
+
+    unsigned long getNumberOfCards();
 };
 
 

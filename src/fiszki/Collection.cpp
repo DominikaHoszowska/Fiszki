@@ -59,6 +59,7 @@ void Collection::addNewFC(const std::string & pl, const std::string &eng, unsign
 }
 
 void Collection::loadFromDB() {
+    cards_.clear();
     sqlite3_stmt *stmt;
     std::string sql = "SELECT * FROM Cards WHERE Collection_ID=";
     sql += std::to_string(this->getId_());

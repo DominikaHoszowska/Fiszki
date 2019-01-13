@@ -147,10 +147,9 @@ void Game::setDb_(sqlite3 *db_) {
 }
 
 std::shared_ptr<Collection> Game::getCollection(std::string &name) {
-    std::vector<std::shared_ptr<Collection>>::iterator i;
-    for (i = collections_.begin(); i != collections_.end(); ++i) {
-        if (!i->get()->getName_().compare(name))
-            return *i;
+    for (auto i :collections_) {
+        if (!i->getName_().compare(name))
+            return i;
     }
     return nullptr;
 }

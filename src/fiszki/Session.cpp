@@ -103,3 +103,7 @@ void Session:: deleteCard(std::shared_ptr<CardSession> card)  {
     }
 
 }
+
+unsigned long Session::getNumberOfCards() {
+    return cards_.size();
+}

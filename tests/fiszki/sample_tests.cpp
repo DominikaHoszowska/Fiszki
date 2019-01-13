@@ -22,10 +22,12 @@ BOOST_AUTO_TEST_SUITE(sample_test_suite)
         Game game;
         game.setLanguage(Game::Language::PL_ENG);
         BOOST_CHECK(game.getLanguage_() == Game::Language::PL_ENG);
-        std::shared_ptr<Collection> c = game.getCollection(1);
+        std::string st("rodzina");
+        std::shared_ptr<Collection> c = game.getCollection(st);
 
         auto ptr = c.get();
 
+        ptr->loadFromDB();
         Session s=Session(c);
         std::shared_ptr<CardSession> cs=s.giveNextCard();
         s.takeAnswer(cs,Session::Answer::GOOD);
