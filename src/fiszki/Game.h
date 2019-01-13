@@ -38,7 +38,7 @@ private:
 
 public:
     //Konstruktory:
-    Game(); //!konstruktor
+    Game(std::string&); //!konstruktor
 
     //Destruktor:
     virtual ~Game();

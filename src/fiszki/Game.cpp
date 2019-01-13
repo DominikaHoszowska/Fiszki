@@ -11,11 +11,11 @@
 
 using namespace sqlite_orm;
 //Konstruktory:
-Game::Game() {
+Game::Game(std::string& dbname) {
     int src;
     char *err_msg = nullptr;
     setlocale(LC_ALL, "polish");
-    src = sqlite3_open("baza.db", &db_);
+    src = sqlite3_open(dbname.c_str(), &db_);
     if (src) {
         std::cout << "Nie mogę otworzyć bazy";
     } else {
@@ -123,13 +123,14 @@ void Game::addCollection(unsigned int id, std::string name) {
 
 }
 void Game::addCollection(std::string name) {
-
-    int src;
-    char *err_msg = nullptr;
-    std::string sql = "INSERT INTO COLLECTIONS VALUES(" + std::to_string(actualCollId_ + 1) + ",'" + name + "');";
-    src = sqlite3_exec(db_, sql.c_str(), nullptr, nullptr, &err_msg);
-    this->addCollection(actualCollId_ + 1, name);
-    actualCollId_ += 1;
+    if(ifCollectionNameUnique(name)) {
+        int src;
+        char *err_msg = nullptr;
+        std::string sql = "INSERT INTO COLLECTIONS VALUES(" + std::to_string(actualCollId_ + 1) + ",'" + name + "');";
+        src = sqlite3_exec(db_, sql.c_str(), nullptr, nullptr, &err_msg);
+        this->addCollection(actualCollId_ + 1, name);
+        actualCollId_ += 1;
+    }
 
 }
 
@@ -142,13 +143,15 @@ void Game::addCard(std::string pl, std::string eng) {
 
 void Game::addCardsToCollection(std::string collectionName) {
     std::shared_ptr<Collection> c = getCollection(collectionName);
-    c->loadFromDB();
-    std::vector<std::shared_ptr<Card>>::iterator i;
-    for (i = cardsToAdd_.begin(); i != cardsToAdd_.end(); ++i) {
-        c->addNewFC(i->get()->getPl_(), i->get()->getEng_(), actualCardId_ + 1);
-        ++actualCardId_;
+    if(c) {
+        c->loadFromDB();
+        std::vector<std::shared_ptr<Card>>::iterator i;
+        for (i = cardsToAdd_.begin(); i != cardsToAdd_.end(); ++i) {
+            c->addNewFC(i->get()->getPl_(), i->get()->getEng_(), actualCardId_ + 1);
+            ++actualCardId_;
+        }
+        cardsToAdd_.clear();
     }
-    cardsToAdd_.clear();
 }
 
 bool Game::ifCardsToAddIsEmpty() {

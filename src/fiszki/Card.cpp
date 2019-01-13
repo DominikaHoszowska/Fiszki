@@ -117,6 +117,8 @@ void Card::updateCardDB() {
  bool Card::checkCorrectnessW(const std::string &word) {
     if(word.empty())
         return false;
+    if(word.size()>20)
+        return false;
      std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
      std::wstring wide = converter.from_bytes(word);
      std::locale loc( "pl_PL.utf8" );
