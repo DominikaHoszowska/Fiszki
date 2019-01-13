@@ -17,6 +17,42 @@ public:
 
     }
 };
+//Konstruktry:
+Session::Session(const std::shared_ptr<Collection> &collection_) : collection_(collection_) {
+    updateCardsToLearn();
+    good_=0;
+    medium_=0;
+    bad_=0;
+}
+
+//GETTERY:
+
+const std::shared_ptr<Collection> &Session::getCollection_() const {
+    return collection_;
+}
+
+
+int Session::getGood_() const {
+    return good_;
+}
+
+int Session::getMedium_() const {
+    return medium_;
+}
+
+int Session::getBad_() const {
+    return bad_;
+}
+
+int Session::getAllAnswers() const {
+    return (good_+medium_+bad_);
+}
+
+unsigned long Session::getNumberOfCards() {
+    return cards_.size();
+}
+
+//OTHERS:
 
 void Session::updateCardsToLearn() {
     collection_->updateCardsToLearn(this);
@@ -29,21 +65,13 @@ std::shared_ptr<CardSession> Session::giveNextCard() {
     return  *std::max_element(cards_.begin(),cards_.end(),CardCompare());
 }
 
-const std::shared_ptr<Collection> &Session::getCollection_() const {
-    return collection_;
-}
 
 
 void Session::addCardToLearn(std::shared_ptr<Card> card) {
     cards_.push_back(std::make_shared<CardSession>(card));
 }
 
-Session::Session(const std::shared_ptr<Collection> &collection_) : collection_(collection_) {
-    updateCardsToLearn();
-    good_=0;
-    medium_=0;
-    bad_=0;
-}
+
 
 void Session::takeAnswer(std::shared_ptr<CardSession> cardSession, Session::Answer answer) {
     if(cardSession) {
@@ -77,22 +105,6 @@ void Session::takeAnswer(std::shared_ptr<CardSession> cardSession, Session::Answ
 
 }
 
-int Session::getGood_() const {
-    return good_;
-}
-
-int Session::getMedium_() const {
-    return medium_;
-}
-
-int Session::getBad_() const {
-    return bad_;
-}
-
-int Session::getAllAnswers() const {
-    return (good_+medium_+bad_);
-}
-
 void Session:: deleteCard(std::shared_ptr<CardSession> card)  {
     for(auto i=cards_.begin();i!=cards_.end();++i)
     {
@@ -104,6 +116,3 @@ void Session:: deleteCard(std::shared_ptr<CardSession> card)  {
 
 }
 
-unsigned long Session::getNumberOfCards() {
-    return cards_.size();
-}
