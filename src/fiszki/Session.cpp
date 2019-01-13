@@ -46,30 +46,33 @@ Session::Session(const std::shared_ptr<Collection> &collection_) : collection_(c
 }
 
 void Session::takeAnswer(std::shared_ptr<CardSession> cardSession, Session::Answer answer) {
-    switch (answer)
-    {
-        case Answer ::GOOD:
-            ++good_;
-            cardSession->addNewScore(5);
-            cardSession->getCard_()->updateCard(cardSession->getAverage());
-            deleteCard(cardSession);
-            break;
+    if(cardSession) {
+        switch (answer) {
+            case Answer::GOOD:
+                ++good_;
+                cardSession->addNewScore(5);
+                cardSession->getCard_()->updateCard(cardSession->getAverage());
+                deleteCard(cardSession);
+                break;
 
-        case Answer ::MEDIUM:
-            ++medium_;
-            cardSession->addNewScore(3);
+            case Answer::MEDIUM:
+                ++medium_;
+                cardSession->addNewScore(3);
+                if (cardSession->getNumberOfScores() >= 3) {
+                    cardSession->getCard_()->updateCard(cardSession->getAverage());
+                    deleteCard(cardSession);
+                }
+                break;
+            default:
+                ++bad_;
+                cardSession->addNewScore(1);
+                if (cardSession->getNumberOfScores() >= 3) {
+                    cardSession->getCard_()->updateCard(cardSession->getAverage());
+                    deleteCard(cardSession);
+                }
+                break;
 
-            break;
-        default:
-            ++bad_;
-            cardSession->addNewScore(1);
-
-            break;
-
-    }
-    if(cardSession->getNumberOfScores()>=3) {
-        cardSession->getCard_()->updateCard(cardSession->getAverage());
-        deleteCard(cardSession);
+        }
     }
 
 }
@@ -91,10 +94,12 @@ int Session::getAllAnswers() const {
 }
 
 void Session:: deleteCard(std::shared_ptr<CardSession> card)  {
-for(auto i=cards_.begin();i!=cards_.end();++i)
-{
-    if(*i==card)
-        i=cards_.erase(i);
-}
+    for(auto i=cards_.begin();i!=cards_.end();++i)
+    {
+        if(*i==card) {
+            i = cards_.erase(i);
+            return;
+        }
+    }
 
 }

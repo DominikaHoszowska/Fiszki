@@ -26,12 +26,17 @@ BOOST_AUTO_TEST_SUITE(sample_test_suite)
 
         auto ptr = c.get();
 
-        ptr->loadFromDB();
-
         Session s=Session(c);
+        std::shared_ptr<CardSession> cs=s.giveNextCard();
+        s.takeAnswer(cs,Session::Answer::GOOD);
+        cs=s.giveNextCard();
+        s.takeAnswer(cs,Session::Answer::BAD);
+        s.takeAnswer(cs,Session::Answer::BAD);
+        s.takeAnswer(cs,Session::Answer::BAD);
 
 
-      BOOST_CHECK_EQUAL(Card::checkCorrectnessW("]]"),0);
+
+        BOOST_CHECK_EQUAL(Card::checkCorrectnessW("]]"),0);
       BOOST_CHECK_EQUAL(Card::checkCorrectnessW("bąłść"),1);
 
 

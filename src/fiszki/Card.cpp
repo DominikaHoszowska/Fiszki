@@ -145,7 +145,7 @@ void Card::updateCardDB() {
     sql+=std::to_string(getTimeToRepeat_().month())+"-";
     sql+=std::to_string(getTimeToRepeat_().day())+"',I=";
     sql+=std::to_string(i_);
-    sql+="WHERE ID=";
+    sql+=" WHERE ID=";
     sql+=std::to_string(id_);
     sql+=";";
     sqlite3_exec(this->getCollection_()->getGame_()->getDb_(), sql.c_str(), nullptr, nullptr, &err_msg);
