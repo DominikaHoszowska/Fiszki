@@ -42,7 +42,7 @@ public:
     void updateTimeToRepeat();
     void updateCardDB();
 
-    //Others:
+    //Inne:
 
     static bool checkCorrectnessW(const std::string &word);//!sprawdza czy dany string jest poprawnym słowem
 };

@@ -112,7 +112,7 @@ void Card::updateCardDB() {
     sqlite3_exec(this->getCollection_()->getGame_()->getDb_(), sql.c_str(), nullptr, nullptr, &err_msg);
 
 }
-//Others:
+//Inne:
 
  bool Card::checkCorrectnessW(const std::string &word) {
     if(word.empty())

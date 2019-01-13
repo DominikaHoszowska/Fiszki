@@ -13,12 +13,20 @@ private:
     std::shared_ptr<Card> card_;
     std::vector<int> scores_;
 public:
-    CardSession(const std::shared_ptr<Card> &card_);
+    //Konstruktory:
+
+    CardSession(const std::shared_ptr<Card> &card_);//! konsturktor używany przy dodawaniu fiszki do uczenia w Session
+
+    //Gettery:
+
+
     const std::shared_ptr<Card> &getCard_() const;
-    void addNewScore(unsigned int);
     double getAverage();
     unsigned int getNumberOfScores();
 
+
+    //Inne
+    void addNewScore(unsigned int);
 };
 
 

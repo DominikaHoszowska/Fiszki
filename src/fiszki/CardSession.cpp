@@ -5,14 +5,14 @@
 #include <numeric>
 #include "CardSession.h"
 
+//Konstruktory:
+
 CardSession::CardSession(const std::shared_ptr<Card> &card_) : card_(card_) {}
+
+//Gettery:
 
 const std::shared_ptr<Card> &CardSession::getCard_() const {
     return card_;
-}
-
-void CardSession::addNewScore(unsigned int q) {
-    scores_.push_back(q);
 }
 
 double CardSession::getAverage() {
@@ -21,5 +21,11 @@ double CardSession::getAverage() {
 
 unsigned int CardSession::getNumberOfScores() {
     return scores_.size();
+}
+
+//Inne
+
+void CardSession::addNewScore(unsigned int q) {
+    scores_.push_back(q);
 }
 
