@@ -13,7 +13,7 @@ public:
 
         if(c1->getNumberOfScores()==c2->getNumberOfScores())
             return (c1->getCard_()->getEF_()>c2->getCard_()->getEF_());
-        return (c1->getNumberOfScores()<c2->getNumberOfScores());
+        return (c1->getNumberOfScores()>c2->getNumberOfScores());
 
     }
 };
