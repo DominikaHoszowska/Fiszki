@@ -45,8 +45,8 @@ public:
     void updateCardsToLearn();//!Prosi kolekcję o dodatnie kart do nauki
     std::shared_ptr<CardSession> giveNextCard();//!zwraca kolejną kartę do nauki
     void addCardToLearn(std::shared_ptr<Card> card); //!dodaje kartę do nauki do sesji,
-    void takeAnswer(std::shared_ptr<CardSession>,Answer answer);
-    void deleteCard(std::shared_ptr<CardSession>);
+    void takeAnswer(std::shared_ptr<CardSession>,Answer answer);//!bierze odpowiedź
+    void deleteCard(std::shared_ptr<CardSession>);//!usuwa kartę z sessji po skończonej nauce
 
 };
 

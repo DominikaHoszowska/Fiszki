@@ -7,6 +7,19 @@
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <codecvt>
 
+//Konstruktory:
+
+Collection::Collection(const std::string &name_, unsigned int id_, Game* game_) : name_(name_),
+                                                                                  id_(id_),
+                                                                                  game_(game_) {
+
+}
+
+//Gettery:
+
+Game *Collection::getGame_() const {
+    return game_;
+}
 
 const std::string &Collection::getName_() const {
     return name_;
@@ -17,20 +30,8 @@ unsigned int Collection::getId_() const {
     return id_;
 }
 
-void Collection::setId_(unsigned int id_) {
-    Collection::id_ = id_;
-}
 
-
-Collection::Collection(const std::string &name_, unsigned int id_, Game* game_) : name_(name_),
-                                                                                                         id_(id_),
-                                                                                                         game_(game_) {
-
-}
-
-Game *Collection::getGame_() const {
-    return game_;
-}
+//Inne:
 
 void Collection::addNewFC(const std::string & pl, const std::string &eng, unsigned int id) {
 

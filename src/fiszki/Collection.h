@@ -23,19 +23,22 @@ private:
     std::vector<std::shared_ptr<Card>> cards_; //! wektor wskaźników na fiszki
     unsigned int id_; //! unikalne ID
     Game* game_;//!wskaźnik na grę
+
 public:
+    //Konstruktory:
+    explicit Collection(const std::string &name_, unsigned int id_, Game* game_);
+
+    //Gettery:
+
     Game *getGame_() const;
-
-public:
-
     const std::string &getName_() const; //! zwraca nazwę kolekcji
     unsigned int getId_() const; //! zwraca ID kolekcji
-    void setId_(unsigned int id_);//! ustawia ID kolekcji
-    explicit Collection(const std::string &name_, unsigned int id_, Game* game_);
+   //Inne:
+
     void addNewFC(const std::string&, const std::string&, unsigned int); //! dodawanie fiszki do kolekcji
-    void loadFromDB();
+    void loadFromDB();//! pobiera z bazy danych karty należące do kolekcji
     static bool checkCorrectnessC(const std::string &word);//!sprawdza czy dany string jest poprawnym słowem
-    void updateCardsToLearn(Session*);
+    void updateCardsToLearn(Session*);//!daje sesji karty do nauki
 
 };
 
