@@ -21,47 +21,29 @@ private:
     unsigned int i_;//! przerwy między kolejnymi powtórkami
 
 public:
-
-
-    unsigned int getId_() const;//! zwraca unikalne ID fiszki
-
-    void setId_(unsigned int id_); //! ustawia ID
-
-    void setPl_(const std::string &pl_); //! ustawia polskie znaczenie
-
-    void setEng_(const std::string &eng_);//! ustawia angielskie znaczenie
-
-    double getEF_() const;//! zwraca wskaźnik nauki fiszki
-
+    //Konstrukory:
     Card(unsigned int id_, const std::string &pl_, const std::string &eng_, double EF_,
-         const boost::gregorian::date &timeToRepeat_, Collection* collection_, unsigned int i_);
+         const boost::gregorian::date &timeToRepeat_, Collection* collection_, unsigned int i_);//!konstruktor używany przy zaciąganiu kart z DB
+    Card(unsigned int id_, const std::string &pl_, const std::string &eng_);//! konstruktor używany przy tworzeniu nowej karty
+    Card(const std::string &pl_, const std::string &eng_);//! konstruktor używany przy dodawaniu do gry
 
+    //Gettery
+    double getEF_() const;//! zwraca wskaźnik nauki fiszki
     unsigned int getI_() const;
+    const std::string &getPl_() const; //! zwraca polskie znaczenie
+    const std::string &getEng_() const;//! zwraca angielskie znaczenie
+    const boost::gregorian::date &getTimeToRepeat_() const; //! funkcja zwracająca datę kolejnej powtórki fiszki
+    Collection* getCollection_() const;
 
-    Card(unsigned int id_, const std::string &pl_, const std::string &eng_);//! konstruktor
-
-    void setEF_(double EF_);//! ustwia wskaźnik uczenia fiszki
+    //UpdateCard:
     void updateCard(double);
     void updateEF( double); //! aktulizuje wskaźnik uczenia
     void updateI();
     void updateTimeToRepeat();
     void updateCardDB();
-    const std::string &getPl_() const; //! zwraca polskie znaczenie
 
-    const std::string &getEng_() const;//! zwraca angielskie znaczenie
+    //Others:
 
-    Card(const std::string &pl_, const std::string &eng_);//! konstruktor
-
-    const boost::gregorian::date &getTimeToRepeat_() const; //! funkcja zwracająca datę kolejnej powtórki fiszki
-
-    void setTimeToRepeat_(const boost::gregorian::date &timeToRepeat_);//! funkcja ustawiająca datę powtórki fiszki
-
-    Collection* getCollection_() const;
-
-    Card(unsigned int id_, const std::string &pl_, const std::string &eng_,
-         Collection* collection_);
-
-    //! zwraca wskaźnik na kolekcję do której przypisana jest fiszka
     static bool checkCorrectnessW(const std::string &word);//!sprawdza czy dany string jest poprawnym słowem
 };
 #endif //ZPR_CARD_H
