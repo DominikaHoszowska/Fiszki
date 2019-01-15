@@ -96,10 +96,6 @@ void Game::setLanguage(Game::Language language) {
     language_ = language;
 }
 
-void Game::setDb_(sqlite3 *db_) {
-    Game::db_ = db_;
-}
-
 void Game::setActualCollId() {
     std::vector<std::shared_ptr<Collection>>::iterator i;
     actualCollId_ = 0;

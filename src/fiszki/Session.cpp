@@ -55,6 +55,7 @@ bool Session::cardsAreNotNull() {
 //OTHERS:
 
 void Session::updateCardsToLearn() {
+    cards_.clear();
     collection_->updateCardsToLearn(this);
 }
 

@@ -46,8 +46,14 @@ void Collection::addNewFC(const std::string & pl, const std::string &eng, unsign
 
     sql+=",'"+pl+"','"+eng+"'";
     std::locale::global(std::locale::classic());
-
-    sql+=","+boost::lexical_cast<std::string>(c->getEF_());
+    try {
+        sql += "," + boost::lexical_cast<std::string>(c->getEF_());
+    }
+    catch(const boost::bad_lexical_cast &)
+    {
+        std::cout<<"Nie udało się wprowadzić fiszki-błędny wskaźnik uczenia";
+        return;
+    }
     sql+=",'";
     sql+=std::to_string(c->getTimeToRepeat_().year())+"-";
     sql+=std::to_string(c->getTimeToRepeat_().month())+"-";
@@ -56,7 +62,11 @@ void Collection::addNewFC(const std::string & pl, const std::string &eng, unsign
     sql+=std::to_string(c->getI_());
     sql+=");";
 
-    sqlite3_exec(this->getGame_()->getDb_(), sql.c_str(), nullptr, nullptr, &err_msg);
+        sqlite3_exec(this->getGame_()->getDb_(), sql.c_str(), nullptr, nullptr, &err_msg);
+        if(err_msg)
+        {
+            std::cout<<"Nie udało się wprowadzić fiszki";
+    }
 }
 
 void Collection::loadFromDB() {

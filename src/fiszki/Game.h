@@ -56,7 +56,6 @@ public:
     //Settery:
 
     void setLanguage(Language language);
-    void setDb_(sqlite3 *db_);//! ustawia baze danych, używana w FE
     void setActualCollId();//!Sprawdza jakie jest na większe id wśród naszych kolekcji
 
     //Inne:

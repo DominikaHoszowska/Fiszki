@@ -100,7 +100,14 @@ void Card::updateCardDB() {
     std::setlocale(LC_NUMERIC, "en_US.utf8");
 
     std::string sql="UPDATE CARDS SET  EF=";
-    sql+=boost::lexical_cast<std::string>(EF_);
+    try {
+        sql += boost::lexical_cast<std::string>(EF_);
+    }
+    catch(const boost::bad_lexical_cast &)
+    {
+        std::cout<<"Nie udało się wprowadzić zmian do fiszki-błędny wskaźnik uczenia";
+        return;
+    }
     sql+=", TIME_TO_REPEAT='";
     sql+=std::to_string(getTimeToRepeat_().year())+"-";
     sql+=std::to_string(getTimeToRepeat_().month())+"-";
@@ -110,7 +117,10 @@ void Card::updateCardDB() {
     sql+=std::to_string(id_);
     sql+=";";
     sqlite3_exec(this->getCollection_()->getGame_()->getDb_(), sql.c_str(), nullptr, nullptr, &err_msg);
-
+    if(err_msg)
+    {
+        std::cout<<"Nie udało się wprowadzić zmian do fiszki";
+    }
 }
 //Inne:
 
