@@ -15,7 +15,7 @@ private:
 public:
     //Konstruktory:
 
-    CardSession(const std::shared_ptr<Card> &card_);//! konsturktor używany przy dodawaniu fiszki do uczenia w Session
+    CardSession(const std::shared_ptr<Card> &card_);//!< konsturktor używany przy dodawaniu fiszki do uczenia w Session
 
     //Gettery:
 

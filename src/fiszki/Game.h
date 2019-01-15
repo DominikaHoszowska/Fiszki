@@ -27,10 +27,10 @@ public:
     };
 
 private:
-    std::vector<std::shared_ptr<Collection>> collections_;//!<wektor wskaźników na kolekcje użytkownika
-    unsigned int actualCollId_;//!<Największe ID kolekcji znajdującej się w bazie. Trzymamy je, żeby wiedzieć z jakim ID stworzymy kolejną
-    unsigned int actualCardId_;//!największe ID karty znajdujacej sie bazie
-    sqlite3* db_;    //! wskaźnik do bazy danych
+    std::vector<std::shared_ptr<Collection>> collections_;//!<<wektor wskaźników na kolekcje użytkownika
+    unsigned int actualCollId_;//!<<Największe ID kolekcji znajdującej się w bazie. Trzymamy je, żeby wiedzieć z jakim ID stworzymy kolejną
+    unsigned int actualCardId_;//!<największe ID karty znajdujacej sie bazie
+    sqlite3* db_;    //!< wskaźnik do bazy danych
     Language language_ =  Language::PL_ENG;
     std::vector<std::shared_ptr<Card>>cardsToAdd_;
 
@@ -38,7 +38,7 @@ private:
 
 public:
     //Konstruktory:
-    Game(std::string&); //!konstruktor
+    Game(std::string&); //!<konstruktor
 
     //Destruktor:
     virtual ~Game();
@@ -46,29 +46,29 @@ public:
     //Gettery:
 
     Language getLanguage_() const;
-    sqlite3 *getDb_() const;//! zwraca wskaźnik do bazy danych
-    unsigned long numberOfCollections();//!<Zwraca ile kolekcji jest w bazie użytkownika.
-    std::shared_ptr<Collection> getCollection(unsigned int);//!zwraca kolekcje o zadanym id
-    std::shared_ptr<Collection> getCollection(std::string&);//!zwraca kolekcję o zadaniej nazwie
-    std::vector<std::string> getCollections(); //!Zwraca kolekcje które są w grze
+    sqlite3 *getDb_() const;//!< zwraca wskaźnik do bazy danych
+    unsigned long numberOfCollections();//!<<Zwraca ile kolekcji jest w bazie użytkownika.
+    std::shared_ptr<Collection> getCollection(unsigned int);//!<zwraca kolekcje o zadanym id
+    std::shared_ptr<Collection> getCollection(std::string&);//!<zwraca kolekcję o zadaniej nazwie
+    std::vector<std::string> getCollections(); //!<Zwraca kolekcje które są w grze
     unsigned int getActualCardId_() const;
 
     //Settery:
 
     void setLanguage(Language language);
-    void setActualCollId();//!Sprawdza jakie jest na większe id wśród naszych kolekcji
+    void setActualCollId();//!<Sprawdza jakie jest na większe id wśród naszych kolekcji
 
     //Inne:
 
-    void addCollection(unsigned int, std::string);//!<Dodawanie kolekcji o zadanej nazwie i id
-    void addCollection(std::string);//!znajduje odpowidnie Id dla kolekcji i wywoluje tworzenie nowej kolekcji
-    void addCard(std::string,std::string);//!Dodawnie karty do kolejki do późniejszego dodania do kolekcji
-    void addCardsToCollection(std::string);//!Dodaje karty ze schowka do wybranej kolekcji
-    bool ifCardsToAddIsEmpty();//!zwraca czy są jakieś karty do dodatnia
-    bool ifCollectionNameUnique(std::string&);//! sprawdza czy nazwa kolekcji jest unikalana
-    void clearCardsToAdd();//!Czyści karty do dodatnia w przypadku rezygnacji użytkownika
-    void loadCollectionsFromDB();//!zaciąga z bazy kolekcje
-    void loadActualCardId();//! zaciąga największe Id z bazy
+    void addCollection(unsigned int, std::string);//!<<Dodawanie kolekcji o zadanej nazwie i id
+    void addCollection(std::string);//!<znajduje odpowidnie Id dla kolekcji i wywoluje tworzenie nowej kolekcji
+    void addCard(std::string,std::string);//!<Dodawnie karty do kolejki do późniejszego dodania do kolekcji
+    void addCardsToCollection(std::string);//!<Dodaje karty ze schowka do wybranej kolekcji
+    bool ifCardsToAddIsEmpty();//!<zwraca czy są jakieś karty do dodatnia
+    bool ifCollectionNameUnique(std::string&);//!< sprawdza czy nazwa kolekcji jest unikalana
+    void clearCardsToAdd();//!<Czyści karty do dodatnia w przypadku rezygnacji użytkownika
+    void loadCollectionsFromDB();//!<zaciąga z bazy kolekcje
+    void loadActualCardId();//!< zaciąga największe Id z bazy
 };
 
 
