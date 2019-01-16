@@ -15,8 +15,8 @@ class CardSession;
  */
 class Session {
 private:
-    std::vector<std::shared_ptr<CardSession>> cards_;//! karty do nauki w danej sesji
-    std::shared_ptr<Collection> collection_;//! wskaźnik do aktualnie nauczanej kolekcji
+    std::vector<std::shared_ptr<CardSession>> cards_;//!< karty do nauki w danej sesji
+    std::shared_ptr<Collection> collection_;//!< wskaźnik do aktualnie nauczanej kolekcji
     int good_;
     int medium_;
     int bad_;
@@ -29,24 +29,24 @@ public:
     };
 
     //Konstruktry:
-    Session(const std::shared_ptr<Collection> &collection_);//! zaciąga karty do nauki
+    Session(const std::shared_ptr<Collection> &collection_);//!< zaciąga karty do nauki
 
     //GETTERY:
 
     const std::shared_ptr<Collection> &getCollection_() const;
-    int getGood_() const;//!używany do wyświetlania statystyk
-    int getMedium_() const;//!używany do wyświetlania statystyk
-    int getBad_() const;//!używany do wyświetlania statystyk
-    int getAllAnswers() const;//!używany do wyświetlania statystyk
-    bool //!<();//!używany aby sprawdzić czy są jakieś karty do nauki
+    int getGood_() const;//!<używany do wyświetlania statystyk
+    int getMedium_() const;//!<używany do wyświetlania statystyk
+    int getBad_() const;//!<używany do wyświetlania statystyk
+    int getAllAnswers() const;//!<używany do wyświetlania statystyk
+    bool cardsAreNotNull();//!<używany aby sprawdzić czy są jakieś karty do nauki
 
     //OTHERS:
 
-    void updateCardsToLearn();//!Prosi kolekcję o dodatnie kart do nauki
-    std::shared_ptr<CardSession> giveNextCard();//!zwraca kolejną kartę do nauki
-    void addCardToLearn(std::shared_ptr<Card> card); //!dodaje kartę do nauki do sesji,
-    void takeAnswer(std::shared_ptr<CardSession>,Answer answer);//!bierze odpowiedź
-    void deleteCard(std::shared_ptr<CardSession>);//!usuwa kartę z sessji po skończonej nauce
+    void updateCardsToLearn();//!<Prosi kolekcję o dodatnie kart do nauki
+    std::shared_ptr<CardSession> giveNextCard();//!<zwraca kolejną kartę do nauki
+    void addCardToLearn(std::shared_ptr<Card> card); //!<dodaje kartę do nauki do sesji,
+    void takeAnswer(std::shared_ptr<CardSession>,Answer answer);//!<bierze odpowiedź
+    void deleteCard(std::shared_ptr<CardSession>);//!<usuwa kartę z sessji po skończonej nauce
 
 };
 
