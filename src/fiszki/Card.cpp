@@ -5,7 +5,7 @@
 #include "Card.h"
 #include <memory>
 #include <codecvt>
-
+#include <clocale>
 //Konstrukory:
 
 Card::Card(unsigned int id_, const std::string &pl_, const std::string &eng_, double EF_,
